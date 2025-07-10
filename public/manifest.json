@@ -1,0 +1,83 @@
+{
+    "name": "Reviva - Vehicle Detailing Services",
+    "short_name": "Reviva",
+    "description": "Find trusted local vehicle detailing services near you. Book appointments, manage your bookings, and get professional car care.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ec4899",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "lang": "en",
+    "categories": [
+        "lifestyle",
+        "automotive",
+        "business"
+    ],
+    "icons": [
+        {
+            "src": "/icons/icon-16x16.svg",
+            "sizes": "16x16",
+            "type": "image/svg+xml",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/icons/icon-32x32.svg",
+            "sizes": "32x32",
+            "type": "image/svg+xml",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/icons/icon-144x144.svg",
+            "sizes": "144x144",
+            "type": "image/svg+xml",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/icons/icon-192x192.svg",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "maskable any"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Book Service",
+            "short_name": "Book",
+            "description": "Book a new vehicle detailing service",
+            "url": "/",
+            "icons": [
+                {
+                    "src": "/icons/icon-32x32.svg",
+                    "sizes": "32x32"
+                }
+            ]
+        },
+        {
+            "name": "My Bookings",
+            "short_name": "Bookings",
+            "description": "View your existing bookings",
+            "url": "/my-bookings",
+            "icons": [
+                {
+                    "src": "/icons/icon-32x32.svg",
+                    "sizes": "32x32"
+                }
+            ]
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/screenshots/mobile-home.png",
+            "sizes": "390x844",
+            "type": "image/png",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "/screenshots/desktop-home.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide"
+        }
+    ]
+}

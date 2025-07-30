@@ -55,10 +55,10 @@ export default function SignUpPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            <div className="max-w-md mx-auto px-4 py-8">
+        <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+            <div className="max-w-md mx-auto px-4 py-8 w-full">
                 <motion.main
-                    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8"
+                    className="bg-white dark:bg-gray-800 rounded-xl p-8"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}

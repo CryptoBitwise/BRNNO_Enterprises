@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FiCalendar, FiClock, FiMapPin, FiStar, FiCheckCircle, FiXCircle } from "react-icons/fi";
+import { FiArrowLeft, FiCalendar, FiClock, FiMapPin, FiCheckCircle, FiXCircle, FiStar } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 import BoopWrapper from "@/components/ui/BoopWrapper";
 
 // Mock booking data
@@ -53,6 +54,7 @@ const statusConfig = {
 };
 
 export default function MyBookingsPage() {
+    const router = useRouter();
     const [selectedStatus, setSelectedStatus] = useState("all");
 
     const statuses = [
@@ -69,25 +71,46 @@ export default function MyBookingsPage() {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            <div className="max-w-4xl mx-auto px-4 py-8">
+            <div className="max-w-6xl mx-auto px-4 py-8">
                 <motion.main
-                    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8"
+                    className="space-y-8"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
+                    {/* Back Button */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 }}
+                    >
+                        <BoopWrapper>
+                            <button
+                                onClick={() => router.back()}
+                                className="flex items-center text-gray-600 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
+                            >
+                                <FiArrowLeft className="mr-2" />
+                                Back
+                            </button>
+                        </BoopWrapper>
+                    </motion.div>
+
                     {/* Header */}
                     <motion.div
-                        className="text-center mb-8"
+                        className="text-center"
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
+                        transition={{ delay: 0.2 }}
                     >
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                            My Bookings
-                        </h1>
-                        <p className="text-gray-600 dark:text-gray-400">
-                            Track and manage your vehicle service appointments
+                        <div className="flex items-center justify-center mb-4">
+                            <FiCalendar className="h-8 w-8 text-pink-500 mr-3" />
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                                My Bookings
+                            </h1>
+                        </div>
+                        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                            View and manage your upcoming appointments and past bookings.
+                            Track the status of your services and access booking details.
                         </p>
                     </motion.div>
 
@@ -113,8 +136,8 @@ export default function MyBookingsPage() {
                                         <button
                                             onClick={() => setSelectedStatus(status.id)}
                                             className={`px-4 py-2 rounded-lg transition-all duration-200 ${selectedStatus === status.id
-                                                    ? "bg-pink-500 text-white shadow-lg"
-                                                    : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:border-pink-300"
+                                                ? "bg-pink-500 text-white shadow-lg"
+                                                : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:border-pink-300"
                                                 }`}
                                         >
                                             {status.name}

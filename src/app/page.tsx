@@ -22,11 +22,11 @@ export default function Splash() {
   // If still loading auth state, show loading
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto px-4 py-8">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="max-w-4xl mx-auto px-4 py-8 w-full">
+          <div className="bg-black/80 backdrop-blur-xl border border-gray-800 rounded-2xl p-8 shadow-2xl">
             <div className="flex items-center justify-center py-12">
-              <div className="text-pink-600 text-lg">Loading...</div>
+              <div className="text-blue-500 text-lg font-light tracking-wide">INITIALIZING BRNNO...</div>
             </div>
           </div>
         </div>
@@ -36,22 +36,36 @@ export default function Splash() {
 
   // Show splash intro for unauthenticated users
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
+
+      <div className="max-w-4xl mx-auto px-4 py-8 w-full relative z-10">
         <motion.main
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8"
+          className="bg-black/80 backdrop-blur-xl border border-gray-800 rounded-2xl p-8 shadow-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           {!showLogin ? (
             <motion.div
-              className="flex items-center justify-center py-12"
+              className="flex items-center justify-center py-16"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
             >
-              <h1 className="text-4xl font-bold text-pink-600">Reviva</h1>
+              <div className="text-center">
+                <h1 className="text-8xl font-black bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent tracking-tight">
+                  BRNNO
+                </h1>
+                <p className="text-gray-400 mt-4 text-lg font-light tracking-wide">
+                  THE FUTURE OF SERVICE BOOKING
+                </p>
+                <div className="mt-8 flex justify-center">
+                  <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                </div>
+              </div>
             </motion.div>
           ) : (
             <motion.div

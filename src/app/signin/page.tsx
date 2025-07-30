@@ -33,8 +33,8 @@ export default function SignInPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            <div className="max-w-md mx-auto px-4 py-8">
+        <div className="h-full w-full bg-white dark:bg-gray-900 flex items-center justify-center">
+            <div className="w-full max-w-md mx-auto px-4">
                 <motion.main
                     className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8"
                     initial={{ opacity: 0, y: 20 }}

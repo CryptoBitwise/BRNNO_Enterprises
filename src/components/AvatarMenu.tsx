@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { FiUser, FiBookOpen, FiSettings, FiLogIn, FiLogOut, FiShield } from "react-icons/fi";
+import { FiUser, FiBookOpen, FiSettings, FiLogIn, FiLogOut, FiShield, FiMapPin } from "react-icons/fi";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { signOut } from "firebase/auth";
@@ -126,6 +126,20 @@ export default function AvatarMenu() {
                                     >
                                         <FiUser className="mr-3 text-lg transition-transform duration-200 group-hover:scale-110" />
                                         <span className="text-sm font-medium">Account</span>
+                                    </Link>
+                                </motion.li>
+                                <motion.li
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                >
+                                    <Link
+                                        href="/locations"
+                                        className="flex items-center px-4 py-4 text-gray-700 hover:bg-gray-100 hover:text-pink-600 transition-all duration-200 min-h-[48px] group"
+                                        onClick={() => setOpen(false)}
+                                    >
+                                        <FiMapPin className="mr-3 text-lg transition-transform duration-200 group-hover:scale-110" />
+                                        <span className="text-sm font-medium">Saved Locations</span>
                                     </Link>
                                 </motion.li>
                                 {isAdmin && (

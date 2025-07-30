@@ -27,7 +27,25 @@ if (firebaseConfig) {
     app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
     authClient = getAuth(app);
     dbClient = getFirestore(app);
-    analytics = (typeof window !== "undefined") ? getAnalytics(app) : null;
+
+    // Initialize Analytics only in browser and with proper error handling
+    if (typeof window !== "undefined") {
+        // Use Promise to handle the async isSupported check
+        isSupported().then((analyticsSupported) => {
+            if (analyticsSupported) {
+                try {
+                    analytics = getAnalytics(app);
+                    console.log('Firebase Analytics initialized successfully');
+                } catch (error) {
+                    console.warn('Failed to initialize Firebase Analytics:', error);
+                }
+            } else {
+                console.warn('Firebase Analytics is not supported in this environment');
+            }
+        }).catch((error) => {
+            console.warn('Failed to check Firebase Analytics support:', error);
+        });
+    }
 } else {
     console.warn('Firebase configuration not found. Please create a .env.local file with your Firebase config.');
 }

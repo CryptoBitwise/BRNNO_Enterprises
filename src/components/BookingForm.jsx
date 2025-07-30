@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { callApi } from "@/utils/api";
 import { motion, AnimatePresence } from "framer-motion";
 import BoopWrapper from "./ui/BoopWrapper";
+import ZipCodeAutocomplete from "./ui/ZipCodeAutocomplete";
 
 const zipRegex = /^\d{5}(?:-\d{4})?$/;
 
@@ -150,78 +151,220 @@ export default function BookingForm({ serviceTitle, serviceId, onClose }) {
                     )}
 
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        {[
-                            { label: "Name", name: "name", type: "text" },
-                            { label: "Email", name: "email", type: "email" },
-                            { label: "ZIP Code", name: "zip", type: "text" },
-                            { label: "Date", name: "date", type: "date" },
-                            { label: "Time", name: "time", type: "time" },
-                        ].map(({ label, name, type }, index) => (
-                            <motion.div
-                                key={name}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.3 + index * 0.1 }}
-                            >
-                                <label className="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">
-                                    {label}
-                                </label>
-                                <motion.input
-                                    name={name}
-                                    type={type}
-                                    value={form[name]}
-                                    onChange={handleChange}
-                                    disabled={loading}
-                                    whileFocus={{ scale: 1.02 }}
-                                    className={`
-                                        w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-800
-                                        text-gray-900 dark:text-gray-100
-                                        focus:outline-none focus:ring-2
-                                        ${errors[name]
-                                            ? "border-red-500 ring-red-200 dark:ring-red-400"
-                                            : "border-gray-300 dark:border-gray-600 ring-blue-200 dark:ring-blue-400"}
-                                        ${loading ? "opacity-50 cursor-not-allowed" : ""}
-                                    `}
-                                />
-                                <AnimatePresence>
-                                    {errors[name] && (
-                                        <motion.p
-                                            initial={{ opacity: 0, height: 0 }}
-                                            animate={{ opacity: 1, height: "auto" }}
-                                            exit={{ opacity: 0, height: 0 }}
-                                            className="text-red-500 dark:text-red-400 text-sm mt-1"
-                                        >
-                                            {errors[name]}
-                                        </motion.p>
-                                    )}
-                                </AnimatePresence>
-                            </motion.div>
-                        ))}
-
+                        {/* Name Field */}
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8 }}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 }}
                         >
-                            <BoopWrapper>
-                                <button
-                                    type="submit"
-                                    disabled={!user || loading}
-                                    className="
-                                        w-full bg-pink-500 hover:bg-pink-600 disabled:bg-gray-400 text-white font-semibold
-                                        py-2 rounded-md transition-colors
-                                    "
-                                >
-                                    {loading
-                                        ? "Processing..."
-                                        : user
-                                            ? "Confirm Booking"
-                                            : "Sign In to Book"
-                                    }
-                                </button>
-                            </BoopWrapper>
+                            <label className="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">
+                                Name
+                            </label>
+                            <motion.input
+                                name="name"
+                                type="text"
+                                value={form.name}
+                                onChange={handleChange}
+                                disabled={loading}
+                                whileFocus={{ scale: 1.02 }}
+                                className={`
+                                    w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-800
+                                    text-gray-900 dark:text-gray-100
+                                    focus:outline-none focus:ring-2
+                                    ${errors.name
+                                        ? "border-red-500 ring-red-200 dark:ring-red-400"
+                                        : "border-gray-300 dark:border-gray-600 ring-blue-200 dark:ring-blue-400"}
+                                    ${loading ? "opacity-50 cursor-not-allowed" : ""}
+                                `}
+                            />
+                            <AnimatePresence>
+                                {errors.name && (
+                                    <motion.p
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="text-red-500 dark:text-red-400 text-sm mt-1"
+                                    >
+                                        {errors.name}
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+
+                        {/* Email Field */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 }}
+                        >
+                            <label className="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">
+                                Email
+                            </label>
+                            <motion.input
+                                name="email"
+                                type="email"
+                                value={form.email}
+                                onChange={handleChange}
+                                disabled={loading}
+                                whileFocus={{ scale: 1.02 }}
+                                className={`
+                                    w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-800
+                                    text-gray-900 dark:text-gray-100
+                                    focus:outline-none focus:ring-2
+                                    ${errors.email
+                                        ? "border-red-500 ring-red-200 dark:ring-red-400"
+                                        : "border-gray-300 dark:border-gray-600 ring-blue-200 dark:ring-blue-400"}
+                                    ${loading ? "opacity-50 cursor-not-allowed" : ""}
+                                `}
+                            />
+                            <AnimatePresence>
+                                {errors.email && (
+                                    <motion.p
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="text-red-500 dark:text-red-400 text-sm mt-1"
+                                    >
+                                        {errors.email}
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+
+                        {/* ZIP Code Field with Autocomplete */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.5 }}
+                        >
+                            <label className="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">
+                                ZIP Code
+                            </label>
+                            <ZipCodeAutocomplete
+                                value={form.zip}
+                                onChange={(value) => setForm(prev => ({ ...prev, zip: value }))}
+                                error={!!errors.zip}
+                                disabled={loading}
+                                required
+                            />
+                            <AnimatePresence>
+                                {errors.zip && (
+                                    <motion.p
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="text-red-500 dark:text-red-400 text-sm mt-1"
+                                    >
+                                        {errors.zip}
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+
+                        {/* Date Field */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.6 }}
+                        >
+                            <label className="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">
+                                Date
+                            </label>
+                            <motion.input
+                                name="date"
+                                type="date"
+                                value={form.date}
+                                onChange={handleChange}
+                                disabled={loading}
+                                whileFocus={{ scale: 1.02 }}
+                                className={`
+                                    w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-800
+                                    text-gray-900 dark:text-gray-100
+                                    focus:outline-none focus:ring-2
+                                    ${errors.date
+                                        ? "border-red-500 ring-red-200 dark:ring-red-400"
+                                        : "border-gray-300 dark:border-gray-600 ring-blue-200 dark:ring-blue-400"}
+                                    ${loading ? "opacity-50 cursor-not-allowed" : ""}
+                                `}
+                            />
+                            <AnimatePresence>
+                                {errors.date && (
+                                    <motion.p
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="text-red-500 dark:text-red-400 text-sm mt-1"
+                                    >
+                                        {errors.date}
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
+
+                        {/* Time Field */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.7 }}
+                        >
+                            <label className="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">
+                                Time
+                            </label>
+                            <motion.input
+                                name="time"
+                                type="time"
+                                value={form.time}
+                                onChange={handleChange}
+                                disabled={loading}
+                                whileFocus={{ scale: 1.02 }}
+                                className={`
+                                    w-full px-3 py-2 border rounded-md bg-white dark:bg-gray-800
+                                    text-gray-900 dark:text-gray-100
+                                    focus:outline-none focus:ring-2
+                                    ${errors.time
+                                        ? "border-red-500 ring-red-200 dark:ring-red-400"
+                                        : "border-gray-300 dark:border-gray-600 ring-blue-200 dark:ring-blue-400"}
+                                    ${loading ? "opacity-50 cursor-not-allowed" : ""}
+                                `}
+                            />
+                            <AnimatePresence>
+                                {errors.time && (
+                                    <motion.p
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="text-red-500 dark:text-red-400 text-sm mt-1"
+                                    >
+                                        {errors.time}
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
                         </motion.div>
                     </form>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.8 }}
+                    >
+                        <BoopWrapper>
+                            <button
+                                type="submit"
+                                disabled={!user || loading}
+                                className="
+                                    w-full bg-pink-500 hover:bg-pink-600 disabled:bg-gray-400 text-white font-semibold
+                                    py-2 rounded-md transition-colors
+                                "
+                            >
+                                {loading
+                                    ? "Processing..."
+                                    : user
+                                        ? "Confirm Booking"
+                                        : "Sign In to Book"
+                                }
+                            </button>
+                        </BoopWrapper>
+                    </motion.div>
                 </motion.div>
             </motion.div>
         </AnimatePresence>

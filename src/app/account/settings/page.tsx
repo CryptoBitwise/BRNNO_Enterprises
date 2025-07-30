@@ -6,14 +6,15 @@ import { useProfile } from '@/hooks/useProfile';
 import { useToast } from '@/components/Toast';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FiMoon, FiSun, FiSave, FiBell, FiMapPin, FiShield, FiGlobe } from 'react-icons/fi';
+import { FiMoon, FiSun, FiSave, FiBell, FiMapPin, FiShield, FiArrowLeft, FiSettings } from 'react-icons/fi';
+import { useRouter } from "next/navigation";
 import BoopWrapper from '@/components/ui/BoopWrapper';
 
 export default function SettingsPage() {
-    const { user } = useAuth();
     const { isDarkMode, toggleDarkMode } = useTheme();
     const { profile, loading, saving, updatePreferences } = useProfile();
     const { showToast } = useToast();
+    const router = useRouter();
 
     const [saveBookingHistory, setSaveBookingHistory] = useState(true);
     const [emailNotifications, setEmailNotifications] = useState(true);
@@ -51,25 +52,46 @@ export default function SettingsPage() {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            <div className="max-w-4xl mx-auto px-4 py-8">
+            <div className="max-w-6xl mx-auto px-4 py-8">
                 <motion.main
-                    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8"
+                    className="space-y-8"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
+                    {/* Back Button */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 }}
+                    >
+                        <BoopWrapper>
+                            <button
+                                onClick={() => router.back()}
+                                className="flex items-center text-gray-600 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
+                            >
+                                <FiArrowLeft className="mr-2" />
+                                Back
+                            </button>
+                        </BoopWrapper>
+                    </motion.div>
+
                     {/* Header */}
                     <motion.div
-                        className="text-center mb-8"
+                        className="text-center"
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
+                        transition={{ delay: 0.2 }}
                     >
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                            Settings & Preferences
-                        </h1>
-                        <p className="text-gray-600 dark:text-gray-400">
-                            Customize your experience and manage your preferences
+                        <div className="flex items-center justify-center mb-4">
+                            <FiSettings className="h-8 w-8 text-pink-500 mr-3" />
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                                Account Settings
+                            </h1>
+                        </div>
+                        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                            Customize your account preferences, notification settings, and privacy controls.
+                            Manage how your data is used and shared.
                         </p>
                     </motion.div>
 

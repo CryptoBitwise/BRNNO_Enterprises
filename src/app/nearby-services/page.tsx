@@ -1,20 +1,66 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FiArrowLeft, FiMapPin } from "react-icons/fi";
-import { useRouter } from "next/navigation";
+import { FiArrowLeft, FiMapPin, FiStar, FiHome, FiBriefcase } from "react-icons/fi";
+import { useRouter, useSearchParams } from "next/navigation";
 import LocationSearch from "@/components/LocationSearch";
 import { MockService } from "@/data/mockServices";
 import BoopWrapper from "@/components/ui/BoopWrapper";
 
+interface SavedLocation {
+    id: string;
+    name: string;
+    address: string;
+    zip: string;
+    notes?: string;
+    category?: 'home' | 'work' | 'other';
+    isDefault?: boolean;
+    createdAt: string;
+}
+
 export default function NearbyServicesPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [foundServices, setFoundServices] = useState<MockService[]>([]);
+    const [savedLocations, setSavedLocations] = useState<SavedLocation[]>([]);
+    const [prefilledLocation, setPrefilledLocation] = useState<string>("");
+
+    // Load saved locations
+    useEffect(() => {
+        const saved = localStorage.getItem('savedLocations');
+        if (saved) {
+            try {
+                setSavedLocations(JSON.parse(saved));
+            } catch (error) {
+                console.error('Error loading saved locations:', error);
+            }
+        }
+    }, []);
+
+    // Handle location data from URL params
+    useEffect(() => {
+        const locationParam = searchParams.get('location');
+        if (locationParam) {
+            try {
+                const locationData = JSON.parse(decodeURIComponent(locationParam));
+                setPrefilledLocation(locationData.zip || locationData.address || "");
+            } catch (error) {
+                console.error('Error parsing location data:', error);
+                setPrefilledLocation(locationParam);
+            }
+        }
+    }, [searchParams]);
 
     const handleServicesFound = (services: MockService[]) => {
         setFoundServices(services);
     };
+
+    const handleLocationSelect = (location: SavedLocation) => {
+        setPrefilledLocation(location.zip || location.address);
+    };
+
+    const defaultLocation = savedLocations.find(loc => loc.isDefault);
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -62,13 +108,69 @@ export default function NearbyServicesPage() {
                         </p>
                     </motion.div>
 
+                    {/* Saved Locations Quick Access */}
+                    {savedLocations.length > 0 && (
+                        <motion.div
+                            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.25 }}
+                        >
+                            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+                                📍 Quick Access - Your Saved Locations
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                {savedLocations.slice(0, 6).map((location) => (
+                                    <BoopWrapper key={location.id}>
+                                        <button
+                                            onClick={() => handleLocationSelect(location)}
+                                            className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-pink-300 dark:hover:border-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors text-left"
+                                        >
+                                            <div className="flex-shrink-0">
+                                                {location.category === 'home' && <FiHome className="h-5 w-5 text-blue-500" />}
+                                                {location.category === 'work' && <FiBriefcase className="h-5 w-5 text-green-500" />}
+                                                {(!location.category || location.category === 'other') && <FiMapPin className="h-5 w-5 text-pink-500" />}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-1">
+                                                    <span className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                                                        {location.name}
+                                                    </span>
+                                                    {location.isDefault && <FiStar className="h-4 w-4 text-yellow-500 flex-shrink-0" />}
+                                                </div>
+                                                <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                                                    {location.zip || location.address}
+                                                </p>
+                                            </div>
+                                        </button>
+                                    </BoopWrapper>
+                                ))}
+                            </div>
+                            {savedLocations.length > 6 && (
+                                <div className="mt-4 text-center">
+                                    <BoopWrapper>
+                                        <button
+                                            onClick={() => router.push('/locations')}
+                                            className="text-pink-500 hover:text-pink-600 font-medium text-sm"
+                                        >
+                                            View all {savedLocations.length} locations →
+                                        </button>
+                                    </BoopWrapper>
+                                </div>
+                            )}
+                        </motion.div>
+                    )}
+
                     {/* Location Search Component */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <LocationSearch onServicesFound={handleServicesFound} />
+                        <LocationSearch 
+                            onServicesFound={handleServicesFound}
+                            prefilledLocation={prefilledLocation}
+                        />
                     </motion.div>
 
                     {/* Additional Info */}

@@ -36,44 +36,53 @@ export default function LoginForm() {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md space-y-4">
-            <h2 className="text-xl font-semibold text-center text-gray-700">Welcome Back</h2>
+        <div className="bg-black/80 backdrop-blur-xl border border-gray-800 rounded-2xl shadow-2xl p-8 w-full max-w-md space-y-6">
+            <div className="text-center">
+                <h2 className="text-2xl font-bold text-white mb-2">ACCESS BRNNO</h2>
+                <p className="text-gray-400 text-sm font-light tracking-wide">ENTER YOUR CREDENTIALS</p>
+            </div>
 
             {error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-sm">
+                <div className="bg-red-900/50 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg text-sm backdrop-blur-xl">
                     {error}
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full border px-4 py-2 rounded focus:ring-pink-500 focus:border-pink-500 transition-colors font-medium text-base text-gray-900"
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full border px-4 py-2 rounded focus:ring-pink-500 focus:border-pink-500 transition-colors font-medium text-base text-gray-900"
-                />
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                    <input
+                        type="email"
+                        placeholder="EMAIL"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full bg-gray-900/50 border border-gray-700 px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 font-medium text-base text-white placeholder-gray-400 backdrop-blur-xl"
+                    />
+                </div>
+                <div className="space-y-2">
+                    <input
+                        type="password"
+                        placeholder="PASSWORD"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full bg-gray-900/50 border border-gray-700 px-4 py-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 font-medium text-base text-white placeholder-gray-400 backdrop-blur-xl"
+                    />
+                </div>
                 <button
                     type="submit"
-                    className="w-full bg-pink-500 text-white py-2 rounded hover:bg-pink-600 transition-colors text-center font-medium"
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 text-center font-bold tracking-wide shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
                 >
-                    {loading ? "Signing In..." : "Sign In"}
+                    {loading ? "AUTHENTICATING..." : "SIGN IN"}
                 </button>
             </form>
 
-            <p className="text-center text-sm text-gray-500">
-                Don't have an account?{" "}
-                <Link href="/signup" className="text-pink-600 hover:underline">
-                    Create one
-                </Link>
-            </p>
+            <div className="text-center">
+                <p className="text-sm text-gray-400">
+                    NEW TO BRNNO?{" "}
+                    <Link href="/signup" className="text-blue-400 hover:text-blue-300 hover:underline font-medium transition-colors duration-200">
+                        CREATE ACCOUNT
+                    </Link>
+                </p>
+            </div>
         </div>
     );
 } 

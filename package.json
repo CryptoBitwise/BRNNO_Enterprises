@@ -1,5 +1,5 @@
 {
-  "name": "reviva",
+  "name": "brnno",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,7 +15,10 @@
     "test:e2e": "cypress run",
     "test:e2e:open": "cypress open",
     "type-check": "tsc --noEmit",
-    "ci": "npm run lint && npm run type-check && npm run test -- --coverage --watchAll=false && npm run build"
+    "ci": "npm run lint && npm run type-check && npm run test -- --coverage --watchAll=false && npm run build",
+    "clean": "node scripts/cleanup.js",
+    "clean:all": "npm run clean && npm install && npm run dev",
+    "reset": "npm run clean && npm install && npm run build"
   },
   "dependencies": {
     "@sendgrid/mail": "^8.1.5",

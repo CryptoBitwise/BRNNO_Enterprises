@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import BoopWrapper, { BoopButton } from "@/components/ui/BoopWrapper";
-import { FiArrowLeft } from "react-icons/fi";
+import BoopWrapper from "@/components/ui/BoopWrapper";
+import { FiArrowLeft, FiTruck } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProfile } from "@/hooks/useProfile";
@@ -57,9 +57,9 @@ export default function AddDetailsPage() {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            <div className="max-w-4xl mx-auto px-4 py-8">
+            <div className="max-w-6xl mx-auto px-4 py-8">
                 <motion.main
-                    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8"
+                    className="space-y-8"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -89,11 +89,15 @@ export default function AddDetailsPage() {
                         transition={{ delay: 0.2 }}
                         className="text-center mb-8"
                     >
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                            Add Service Details
-                        </h2>
-                        <p className="text-gray-600 dark:text-gray-400">
-                            Tell us about your vehicle for better service matching
+                        <div className="flex items-center justify-center mb-4">
+                            <FiTruck className="h-8 w-8 text-pink-500 mr-3" />
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                                Add Vehicle Details
+                            </h1>
+                        </div>
+                        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                            Tell us about your vehicle to help us provide the best service recommendations
+                            and ensure we have all the information needed for your appointment.
                         </p>
                     </motion.div>
 

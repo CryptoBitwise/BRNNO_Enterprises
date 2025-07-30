@@ -5,12 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProfile } from "@/hooks/useProfile";
 import { useToast } from "@/components/Toast";
-import { FiUser, FiSettings, FiEdit3, FiPlus, FiTrash2, FiTruck } from "react-icons/fi";
+import { FiUser, FiSettings, FiEdit3, FiPlus, FiTrash2, FiTruck, FiArrowLeft } from "react-icons/fi";
 import { FaCar, FaShip, FaMotorcycle } from "react-icons/fa";
 import BoopWrapper from "@/components/ui/BoopWrapper";
+import { useRouter } from "next/navigation";
 
 export default function AccountPage() {
-    const { user } = useAuth();
+    const router = useRouter();
     const { profile, loading, saving, saveProfile, removeVehicle } = useProfile();
     const { showToast } = useToast();
     const [activeTab, setActiveTab] = useState("profile");
@@ -76,27 +77,50 @@ export default function AccountPage() {
         }
     };
 
+
+
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            <div className="max-w-4xl mx-auto px-4 py-8">
+            <div className="max-w-6xl mx-auto px-4 py-8">
                 <motion.main
-                    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8"
+                    className="space-y-8"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
+                    {/* Back Button */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 }}
+                    >
+                        <BoopWrapper>
+                            <button
+                                onClick={() => router.back()}
+                                className="flex items-center text-gray-600 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
+                            >
+                                <FiArrowLeft className="mr-2" />
+                                Back
+                            </button>
+                        </BoopWrapper>
+                    </motion.div>
+
                     {/* Header */}
                     <motion.div
-                        className="text-center mb-8"
+                        className="text-center"
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
+                        transition={{ delay: 0.2 }}
                     >
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-                            Account Management
-                        </h1>
-                        <p className="text-gray-600 dark:text-gray-400">
-                            Manage your profile and vehicle information
+                        <div className="flex items-center justify-center mb-4">
+                            <FiUser className="h-8 w-8 text-pink-500 mr-3" />
+                            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                                Account
+                            </h1>
+                        </div>
+                        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                            Manage your profile, preferences, and account settings.
+                            View your booking history and saved locations.
                         </p>
                     </motion.div>
 
@@ -347,6 +371,7 @@ export default function AccountPage() {
                                                         Delete Account
                                                     </button>
                                                 </BoopWrapper>
+
                                             </div>
                                         </div>
                                     </div>

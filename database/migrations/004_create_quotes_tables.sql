@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS quote_items (
     description TEXT NOT NULL,
     unit_price DECIMAL(10, 2) NOT NULL,
     quantity INTEGER NOT NULL DEFAULT 1,
+    total_price DECIMAL(10, 2) NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     
@@ -70,4 +71,18 @@ CREATE TRIGGER update_quotes_updated_at
 CREATE TRIGGER update_quote_items_updated_at 
     BEFORE UPDATE ON quote_items 
     FOR EACH ROW 
-    EXECUTE FUNCTION update_updated_at_column(); 
+    EXECUTE FUNCTION update_updated_at_column();
+
+-- Create trigger to automatically calculate total_price for quote_items
+CREATE OR REPLACE FUNCTION calculate_quote_item_total()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.total_price = NEW.unit_price * NEW.quantity;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER calculate_quote_item_total_trigger
+    BEFORE INSERT OR UPDATE ON quote_items
+    FOR EACH ROW
+    EXECUTE FUNCTION calculate_quote_item_total(); 

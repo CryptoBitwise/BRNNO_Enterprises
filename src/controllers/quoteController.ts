@@ -387,7 +387,7 @@ export const updateQuoteStatus = async (req: Request, res: Response) => {
       });
     }
 
-    const currentQuote = quoteCheck.rows[0];
+    // const currentQuote = quoteCheck.rows[0];
 
     // Update quote status
     const updateResult = await client.query(

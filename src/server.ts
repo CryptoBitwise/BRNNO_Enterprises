@@ -33,6 +33,28 @@ app.get('/api/v1/health', (req, res) => {
   });
 });
 
+// Simple test endpoint
+app.get('/api/v1/test', (req, res) => {
+  console.log('🧪 TEST ENDPOINT CALLED');
+  res.json({
+    message: 'Test endpoint working!',
+    timestamp: new Date().toISOString(),
+    status: 'success'
+  });
+});
+
+// Test POST endpoint
+app.post('/api/v1/test', (req, res) => {
+  console.log('🧪 TEST POST ENDPOINT CALLED');
+  console.log('Request body:', req.body);
+  res.json({
+    message: 'Test POST endpoint working!',
+    receivedData: req.body,
+    timestamp: new Date().toISOString(),
+    status: 'success'
+  });
+});
+
 // Root route
 app.get('/', (req, res) => {
   res.json({

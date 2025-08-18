@@ -1,35 +1,43 @@
 const { Pool } = require('pg');
 require('dotenv').config();
 
-console.log('Testing database connection with different SSL settings...');
-
-// Try with the base hostname and different SSL settings
-const testUrl = 'postgresql://postgres:nctoF4guDspEFexA@ytjbqznnaeommgsgekeh.supabase.co:5432/postgres';
-
-console.log('Testing URL:', testUrl);
+console.log('🔍 Testing SSL connection...\n');
 
 const pool = new Pool({
-    connectionString: testUrl,
-    ssl: {
-        rejectUnauthorized: false,
-        sslmode: 'require'
+    connectionString: process.env.DATABASE_URL,
+    ssl: false, // Try without SSL first
+    connectionTimeoutMillis: 3000,
+    query_timeout: 3000
+});
+
+async function testSSL() {
+    try {
+        console.log('🔄 Testing without SSL...');
+        const client = await pool.connect();
+        console.log('✅ Connected without SSL!');
+        client.release();
+        await pool.end();
+    } catch (error) {
+        console.log('❌ No SSL failed:', error.message);
+
+        // Try with SSL
+        const poolSSL = new Pool({
+            connectionString: process.env.DATABASE_URL,
+            ssl: { rejectUnauthorized: false },
+            connectionTimeoutMillis: 3000,
+            query_timeout: 3000
+        });
+
+        try {
+            console.log('🔄 Testing with SSL...');
+            const client = await poolSSL.connect();
+            console.log('✅ Connected with SSL!');
+            client.release();
+            await poolSSL.end();
+        } catch (sslError) {
+            console.log('❌ SSL also failed:', sslError.message);
+        }
     }
-});
+}
 
-pool.on('connect', () => {
-    console.log('✅ Connected to PostgreSQL database');
-});
-
-pool.on('error', (err) => {
-    console.error('❌ Database connection error:', err.message);
-});
-
-// Test query
-pool.query('SELECT NOW()', (err, result) => {
-    if (err) {
-        console.error('❌ Query failed:', err.message);
-    } else {
-        console.log('✅ Database query successful:', result.rows[0]);
-    }
-    pool.end();
-});
+testSSL();

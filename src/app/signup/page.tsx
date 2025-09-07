@@ -38,6 +38,7 @@ export default function SignUpPage() {
         }
 
         try {
+            if (!authClient) throw new Error('Firebase not initialized');
             const userCredential = await createUserWithEmailAndPassword(authClient, email, password);
 
             if (displayName.trim()) {
@@ -47,8 +48,8 @@ export default function SignUpPage() {
             }
 
             router.push("/");
-        } catch (error: any) {
-            setError(error.message);
+        } catch (error: unknown) {
+            setError(error instanceof Error ? error.message : 'An unknown error occurred');
         } finally {
             setLoading(false);
         }
@@ -106,7 +107,7 @@ export default function SignUpPage() {
                                     id="displayName"
                                     value={displayName}
                                     onChange={(e) => setDisplayName(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
                                     placeholder="Enter your full name"
                                 />
                             </div>
@@ -124,7 +125,7 @@ export default function SignUpPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
                                     placeholder="Enter your email"
                                 />
                             </div>
@@ -142,7 +143,7 @@ export default function SignUpPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
+                                    className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
                                     placeholder="Create a password"
                                 />
                                 <BoopWrapper>
@@ -169,7 +170,7 @@ export default function SignUpPage() {
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
-                                    className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
+                                    className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
                                     placeholder="Confirm your password"
                                 />
                                 <BoopWrapper>
@@ -188,7 +189,7 @@ export default function SignUpPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
+                                className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
                             >
                                 {loading ? "Creating Account..." : "Create Account"}
                             </button>
@@ -203,7 +204,7 @@ export default function SignUpPage() {
                     >
                         <p className="text-gray-600 dark:text-gray-400">
                             Already have an account?{" "}
-                            <Link href="/signin" className="text-pink-500 hover:text-pink-600 font-medium">
+                            <Link href="/signin" className="text-blue-500 hover:text-blue-600 font-medium">
                                 Sign in
                             </Link>
                         </p>

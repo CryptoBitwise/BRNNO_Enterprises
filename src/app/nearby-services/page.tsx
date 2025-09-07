@@ -60,7 +60,7 @@ export default function NearbyServicesPage() {
         setPrefilledLocation(location.zip || location.address);
     };
 
-    const defaultLocation = savedLocations.find(loc => loc.isDefault);
+    // const defaultLocation = savedLocations.find(loc => loc.isDefault);
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

@@ -21,10 +21,11 @@ export default function ResetPasswordPage() {
         setError("");
 
         try {
+            if (!authClient) throw new Error('Firebase not initialized');
             await sendPasswordResetEmail(authClient, email);
             setMessage("Password reset email sent! Check your inbox.");
-        } catch (error: any) {
-            setError(error.message);
+        } catch (error: unknown) {
+            setError(error instanceof Error ? error.message : 'An unknown error occurred');
         } finally {
             setLoading(false);
         }
@@ -47,7 +48,7 @@ export default function ResetPasswordPage() {
                         className="mb-6"
                     >
                         <BoopWrapper>
-                            <Link href="/signin" className="flex items-center text-gray-600 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors">
+                            <Link href="/signin" className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                                 <FiArrowLeft className="mr-2" />
                                 Back to Sign In
                             </Link>
@@ -65,7 +66,7 @@ export default function ResetPasswordPage() {
                             Reset Password
                         </h1>
                         <p className="text-gray-600 dark:text-gray-400">
-                            Enter your email address and we'll send you a link to reset your password
+                            Enter your email address and we&apos;ll send you a link to reset your password
                         </p>
                     </motion.div>
 
@@ -113,7 +114,7 @@ export default function ResetPasswordPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
                                     placeholder="Enter your email address"
                                 />
                             </div>
@@ -123,7 +124,7 @@ export default function ResetPasswordPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
+                                className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
                             >
                                 {loading ? "Sending..." : "Send Reset Link"}
                             </button>
@@ -139,7 +140,7 @@ export default function ResetPasswordPage() {
                     >
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                             Remember your password?{" "}
-                            <Link href="/signin" className="text-pink-500 hover:text-pink-600 font-medium">
+                            <Link href="/signin" className="text-blue-500 hover:text-blue-600 font-medium">
                                 Sign in
                             </Link>
                         </p>

@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
         }
 
         const token = authHeader.substring(7);
-        const decodedToken = await verifyIdToken(token);
+        await verifyIdToken(token);
 
         // TODO: Fetch user bookings from Firestore
         // For now, return empty array

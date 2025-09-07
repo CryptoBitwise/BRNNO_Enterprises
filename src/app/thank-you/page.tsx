@@ -88,13 +88,13 @@ export default function ThankYouPage() {
                         transition={{ duration: 0.5, delay: 0.5 }}
                     >
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                            What's Next?
+                            What&apos;s Next?
                         </h3>
                         <div className="space-y-3 text-gray-600 dark:text-gray-400">
-                            <p>• You'll receive a confirmation email with booking details</p>
+                            <p>• You&apos;ll receive a confirmation email with booking details</p>
                             <p>• Our team will contact you within 24 hours to confirm</p>
                             <p>• You can track your booking status in your account</p>
-                            <p>• We'll send reminders before your appointment</p>
+                            <p>• We&apos;ll send reminders before your appointment</p>
                         </div>
                     </motion.div>
 
@@ -107,7 +107,7 @@ export default function ThankYouPage() {
                     >
                         <BoopWrapper>
                             <Link href="/">
-                                <button className="w-full sm:w-auto bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-lg font-medium transition-colors flex items-center justify-center">
+                                <button className="w-full sm:w-auto bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors flex items-center justify-center">
                                     <FiHome className="h-5 w-5 mr-2" />
                                     Back to Home
                                 </button>
@@ -133,7 +133,7 @@ export default function ThankYouPage() {
                     >
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                             Need help? Contact us at{" "}
-                            <a href="mailto:support@reviva.com" className="text-pink-500 hover:text-pink-600">
+                            <a href="mailto:support@reviva.com" className="text-blue-500 hover:text-blue-600">
                                 support@reviva.com
                             </a>
                         </p>

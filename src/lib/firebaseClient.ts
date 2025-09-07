@@ -3,33 +3,40 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
-// Check if Firebase config is available
-const hasFirebaseConfig = process.env.NEXT_PUBLIC_FIREBASE_API_KEY &&
-    process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN &&
-    process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+// Firebase configuration - using hardcoded values for now to ensure it works
+const firebaseConfig = {
+    apiKey: "AIzaSyASX7OPJWNJv5XpyMpfkkhSsC-QgGiRCQU",
+    authDomain: "brnno-enterprises.firebaseapp.com",
+    projectId: "brnno-enterprises",
+    storageBucket: "brnno-enterprises.firebasestorage.app",
+    messagingSenderId: "475634309916",
+    appId: "1:475634309916:web:6d27ecc83c646e7243f8d9",
+    measurementId: "G-6P17QBPMCN"
+};
 
-const firebaseConfig = hasFirebaseConfig ? {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-} : null;
+const hasFirebaseConfig = true;
 
-let app: any = null;
-let authClient: any = null;
-let dbClient: any = null;
-let analytics: any = null;
+// Firebase config is now hardcoded above
+
+let app: ReturnType<typeof initializeApp> | null = null;
+let authClient: ReturnType<typeof getAuth> | null = null;
+let dbClient: ReturnType<typeof getFirestore> | null = null;
+let analytics: ReturnType<typeof getAnalytics> | null = null;
 
 if (firebaseConfig) {
-    app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
-    authClient = getAuth(app);
-    dbClient = getFirestore(app);
+    try {
+        console.log('Firebase: Initializing with config:', firebaseConfig.projectId);
+        app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
+        authClient = getAuth(app);
+        dbClient = getFirestore(app);
+        console.log('Firebase initialized successfully');
+        console.log('Firebase: authClient created:', !!authClient);
+    } catch (error) {
+        console.error('Firebase initialization error:', error);
+    }
 
     // Initialize Analytics only in browser and with proper error handling
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && app) {
         // Use Promise to handle the async isSupported check
         isSupported().then((analyticsSupported) => {
             if (analyticsSupported) {

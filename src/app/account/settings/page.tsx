@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useProfile } from '@/hooks/useProfile';
 import { useToast } from '@/components/Toast';

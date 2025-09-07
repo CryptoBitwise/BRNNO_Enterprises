@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMapPin, FiSearch, FiX } from "react-icons/fi";
+import { FiMapPin, FiX } from "react-icons/fi";
 
 interface AddressSuggestion {
     id: string;
@@ -176,7 +176,7 @@ export default function AddressAutocomplete({
                     className={`
                         w-full pl-10 pr-10 py-3 border rounded-lg
                         bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                        focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
                         transition-all duration-200
                         ${error
                             ? "border-red-500 ring-red-200 dark:ring-red-400"
@@ -200,7 +200,7 @@ export default function AddressAutocomplete({
                 {/* Loading indicator */}
                 {isLoading && (
                     <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-pink-500"></div>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
                     </div>
                 )}
             </div>
@@ -228,7 +228,7 @@ export default function AddressAutocomplete({
                                 whileHover={{ backgroundColor: "rgb(249 250 251)" }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                <FiMapPin className="text-pink-500 h-4 w-4 flex-shrink-0" />
+                                <FiMapPin className="text-blue-500 h-4 w-4 flex-shrink-0" />
                                 <div className="flex-1 min-w-0">
                                     <div className="font-medium text-gray-900 dark:text-gray-100 truncate">
                                         {suggestion.address}

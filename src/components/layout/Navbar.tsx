@@ -28,6 +28,22 @@ export default function Navbar() {
                             <span className="hidden sm:inline">HOME</span>
                         </Link>
                     </BoopButton>
+                    <BoopButton>
+                        <Link
+                            href="/services"
+                            className="flex items-center space-x-1 px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-200 font-medium border border-transparent hover:border-gray-700"
+                        >
+                            <span className="hidden sm:inline">FIND SERVICES</span>
+                        </Link>
+                    </BoopButton>
+                    <BoopButton>
+                        <Link
+                            href="/provider-register"
+                            className="flex items-center space-x-1 px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-200 font-medium border border-transparent hover:border-gray-700"
+                        >
+                            <span className="hidden sm:inline">BECOME A PROVIDER</span>
+                        </Link>
+                    </BoopButton>
                 </div>
 
                 {/* Hamburger Icon for Mobile */}
@@ -59,7 +75,20 @@ export default function Navbar() {
                             <FiHome className="h-5 w-5" />
                             <span>HOME</span>
                         </Link>
-                        {/* Add more nav links here if needed */}
+                        <Link
+                            href="/services"
+                            className="flex items-center space-x-2 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-200 font-medium border border-transparent hover:border-gray-700"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <span>FIND SERVICES</span>
+                        </Link>
+                        <Link
+                            href="/provider-register"
+                            className="flex items-center space-x-2 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-all duration-200 font-medium border border-transparent hover:border-gray-700"
+                            onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <span>BECOME A PROVIDER</span>
+                        </Link>
                     </div>
                 </div>
             )}

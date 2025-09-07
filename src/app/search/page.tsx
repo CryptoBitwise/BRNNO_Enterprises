@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FiArrowLeft, FiSearch, FiMapPin, FiStar, FiClock } from "react-icons/fi";
+import { FiArrowLeft, FiSearch, FiMapPin, FiStar } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import BoopWrapper from "@/components/ui/BoopWrapper";
 

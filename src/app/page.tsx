@@ -19,16 +19,13 @@ export default function Splash() {
     return <Dashboard />;
   }
 
-  // If still loading auth state, show loading
+  // If still loading auth state, show minimal loading
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="max-w-4xl mx-auto px-4 py-8 w-full">
-          <div className="bg-black/80 backdrop-blur-xl border border-gray-800 rounded-2xl p-8 shadow-2xl">
-            <div className="flex items-center justify-center py-12">
-              <div className="text-blue-500 text-lg font-light tracking-wide">INITIALIZING BRNNO...</div>
-            </div>
-          </div>
+        <div className="text-center">
+          <div className="text-blue-500 text-lg font-light tracking-wide mb-4">INITIALIZING BRNNO...</div>
+          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
         </div>
       </div>
     );

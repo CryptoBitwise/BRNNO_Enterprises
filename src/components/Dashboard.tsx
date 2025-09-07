@@ -2,22 +2,21 @@
 
 import Link from "next/link";
 import { categories } from "@/data/catalog";
-import { FaCar, FaShip, FaMotorcycle, FaTruck } from "react-icons/fa";
-import { GiCarWheel } from "react-icons/gi";
+
 import { motion } from "framer-motion";
-import { IconButton } from "@/components/ui/Button";
+
 import { BoopIcon } from "@/components/ui/BoopWrapper";
 import BoopWrapper from "@/components/ui/BoopWrapper";
 import { useAuth } from "@/contexts/AuthContext";
 
 // Enhanced icon mapping with better visual representation
-const iconMap = {
-    FaCar: FaCar,
-    FaShip: FaShip,
-    FaMotorcycle: FaMotorcycle,
-    FaTruck: FaTruck,
-    GiCarWheel: GiCarWheel,
-};
+// const iconMap = {
+//     FaCar: FaCar,
+//     FaShip: FaShip,
+//     FaMotorcycle: FaMotorcycle,
+//     FaTruck: FaTruck,
+//     GiCarWheel: GiCarWheel,
+// };
 
 // Service type emojis for better visual appeal
 const serviceTypeEmojis = {
@@ -72,7 +71,7 @@ export default function Dashboard() {
                         >
                             <Link href="/nearby-services">
                                 <BoopIcon>
-                                    <button className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-4 rounded-xl font-medium transition-colors text-lg shadow-lg hover:shadow-xl">
+                                    <button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-xl font-medium transition-colors text-lg shadow-lg hover:shadow-xl">
                                         🗺️ Find Services Near Me
                                     </button>
                                 </BoopIcon>
@@ -92,7 +91,7 @@ export default function Dashboard() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                                 <Link href="/my-bookings">
                                     <BoopIcon>
-                                        <div className="text-center p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-pink-300 dark:hover:border-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer">
+                                        <div className="text-center p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer">
                                             <div className="text-2xl mb-2">📅</div>
                                             <h4 className="font-medium text-gray-900 dark:text-gray-100">My Bookings</h4>
                                             <p className="text-xs text-gray-500 dark:text-gray-400">View appointments</p>
@@ -101,7 +100,7 @@ export default function Dashboard() {
                                 </Link>
                                 <Link href="/add-details">
                                     <BoopIcon>
-                                        <div className="text-center p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-pink-300 dark:hover:border-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer">
+                                        <div className="text-center p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer">
                                             <div className="text-2xl mb-2">🚗</div>
                                             <h4 className="font-medium text-gray-900 dark:text-gray-100">Add Vehicle</h4>
                                             <p className="text-xs text-gray-500 dark:text-gray-400">Vehicle details</p>
@@ -110,7 +109,7 @@ export default function Dashboard() {
                                 </Link>
                                 <Link href="/locations">
                                     <BoopIcon>
-                                        <div className="text-center p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-pink-300 dark:hover:border-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer">
+                                        <div className="text-center p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer">
                                             <div className="text-2xl mb-2">📍</div>
                                             <h4 className="font-medium text-gray-900 dark:text-gray-100">Locations</h4>
                                             <p className="text-xs text-gray-500 dark:text-gray-400">Manage addresses</p>
@@ -119,7 +118,7 @@ export default function Dashboard() {
                                 </Link>
                                 <Link href="/account">
                                     <BoopIcon>
-                                        <div className="text-center p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-pink-300 dark:hover:border-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-colors cursor-pointer">
+                                        <div className="text-center p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer">
                                             <div className="text-2xl mb-2">👤</div>
                                             <h4 className="font-medium text-gray-900 dark:text-gray-100">Account</h4>
                                             <p className="text-xs text-gray-500 dark:text-gray-400">Profile & settings</p>
@@ -157,8 +156,7 @@ export default function Dashboard() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.3 }}
                         >
-                            {categories.map(({ key, label, iconName }, index) => {
-                                const IconComponent = iconMap[iconName as keyof typeof iconMap];
+                            {categories.map(({ key }, index) => {
                                 return (
                                     <motion.div
                                         key={key}
@@ -174,7 +172,7 @@ export default function Dashboard() {
                                     >
                                         <Link href={`/services?category=${key}`}>
                                             <BoopWrapper>
-                                                <div className="text-center p-4 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-pink-300 dark:hover:border-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-all duration-200 cursor-pointer group">
+                                                <div className="text-center p-4 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 cursor-pointer group">
                                                     <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
                                                         {serviceTypeEmojis[key as keyof typeof serviceTypeEmojis]}
                                                     </div>
@@ -201,7 +199,7 @@ export default function Dashboard() {
                         >
                             <Link href="/services">
                                 <BoopWrapper>
-                                    <button className="bg-gray-100 dark:bg-gray-800 hover:bg-pink-100 dark:hover:bg-pink-900/20 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg font-medium transition-colors border border-gray-200 dark:border-gray-600">
+                                    <button className="bg-gray-100 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-blue-900/20 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg font-medium transition-colors border border-gray-200 dark:border-gray-600">
                                         View All Services
                                     </button>
                                 </BoopWrapper>

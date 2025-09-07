@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiMapPin, FiHome, FiBriefcase, FiNavigation, FiStar } from "react-icons/fi";
 import { MockService } from "@/data/mockServices";
@@ -77,7 +77,7 @@ export default function LocationMap({
             {/* Map Header */}
             <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                    <FiNavigation className="text-pink-500 h-5 w-5" />
+                    <FiNavigation className="text-blue-500 h-5 w-5" />
                     <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                         Service Map
                     </h3>
@@ -124,10 +124,10 @@ export default function LocationMap({
                                 <div className={`
                                     relative p-2 rounded-full shadow-lg transition-all duration-200
                                     ${selectedLocation?.id === location.id
-                                        ? 'bg-pink-500 text-white scale-110'
+                                        ? 'bg-blue-500 text-white scale-110'
                                         : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:scale-105'
                                     }
-                                    ${hoveredLocation === location.id ? 'ring-2 ring-pink-300' : ''}
+                                    ${hoveredLocation === location.id ? 'ring-2 ring-blue-300' : ''}
                                 `}>
                                     {location.category === 'home' ? (
                                         <FiHome className="h-4 w-4" />
@@ -213,7 +213,7 @@ export default function LocationMap({
                 {/* Distance Rings */}
                 {selectedLocation && (
                     <div
-                        className="absolute border-2 border-pink-200 dark:border-pink-800 rounded-full opacity-30"
+                        className="absolute border-2 border-blue-200 dark:border-blue-800 rounded-full opacity-30"
                         style={{
                             left: `${getLocationCoordinates(selectedLocation.zip).x}%`,
                             top: `${getLocationCoordinates(selectedLocation.zip).y}%`,
@@ -229,7 +229,7 @@ export default function LocationMap({
             <div className="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
-                        <FiHome className="h-3 w-3 text-pink-500" />
+                        <FiHome className="h-3 w-3 text-blue-500" />
                         <span>Home</span>
                     </div>
                     <div className="flex items-center gap-1">

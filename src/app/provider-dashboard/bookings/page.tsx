@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import {
+    FiArrowLeft,
     FiCalendar,
     FiClock,
     FiMapPin,
@@ -14,19 +15,17 @@ import {
     FiCheckCircle,
     FiXCircle,
     FiAlertCircle,
-    FiFilter,
-    FiArrowRight,
-    FiStar,
-    FiDollarSign,
-    FiRefreshCw
+    FiFilter
 } from "react-icons/fi";
+import { ProviderProfile } from "@/types/provider";
+import { ProviderService as ProviderServiceClass } from "@/lib/providerService";
 import BoopWrapper from "@/components/ui/BoopWrapper";
 
 interface Booking {
     id: string;
-    providerName: string;
-    providerEmail: string;
-    providerPhone: string;
+    customerName: string;
+    customerEmail: string;
+    customerPhone: string;
     serviceName: string;
     servicePrice: number;
     scheduledDate: string;
@@ -35,14 +34,12 @@ interface Booking {
     address: string;
     notes?: string;
     createdAt: string;
-    providerId: string;
-    rating?: number;
-    review?: string;
 }
 
-export default function MyBookingsPage() {
+export default function ProviderBookingsPage() {
     const { user, loading } = useAuth();
     const router = useRouter();
+    const [provider, setProvider] = useState<ProviderProfile | null>(null);
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [filter, setFilter] = useState<'all' | 'pending' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled'>('all');
@@ -54,20 +51,29 @@ export default function MyBookingsPage() {
         return null;
     }
 
-    // Load bookings data
+    // Load provider and bookings data
     useEffect(() => {
-        const loadBookings = async () => {
+        const loadData = async () => {
             if (!user) return;
 
             try {
                 setIsLoading(true);
-                // Mock bookings data - in production, this would come from an API
+                const providerData = await ProviderServiceClass.getProvider(user.uid);
+
+                if (!providerData) {
+                    router.push('/provider-register');
+                    return;
+                }
+
+                setProvider(providerData);
+
+                // Mock bookings data - in production, this would come from a bookings API
                 const mockBookings: Booking[] = [
                     {
                         id: '1',
-                        providerName: 'Elite Auto Detailing',
-                        providerEmail: 'mike@eliteauto.com',
-                        providerPhone: '(555) 123-4567',
+                        customerName: 'John Smith',
+                        customerEmail: 'john@example.com',
+                        customerPhone: '(555) 123-4567',
                         serviceName: 'Premium Car Detailing',
                         servicePrice: 150,
                         scheduledDate: '2024-01-15',
@@ -75,54 +81,47 @@ export default function MyBookingsPage() {
                         status: 'confirmed',
                         address: '123 Main St, Anytown, ST 12345',
                         notes: 'Please use eco-friendly products',
-                        createdAt: '2024-01-10T10:00:00Z',
-                        providerId: '1',
-                        rating: 5,
-                        review: 'Excellent service! Very professional and thorough.'
+                        createdAt: '2024-01-10T10:00:00Z'
                     },
                     {
                         id: '2',
-                        providerName: 'Mobile Wash Masters',
-                        providerEmail: 'sarah@mobilewash.com',
-                        providerPhone: '(555) 987-6543',
+                        customerName: 'Sarah Johnson',
+                        customerEmail: 'sarah@example.com',
+                        customerPhone: '(555) 987-6543',
                         serviceName: 'Truck Wash & Wax',
                         servicePrice: 200,
                         scheduledDate: '2024-01-16',
                         scheduledTime: '14:00',
                         status: 'pending',
                         address: '456 Oak Ave, Anytown, ST 12345',
-                        createdAt: '2024-01-11T14:30:00Z',
-                        providerId: '2'
+                        createdAt: '2024-01-11T14:30:00Z'
                     },
                     {
                         id: '3',
-                        providerName: 'Truck & Fleet Services',
-                        providerEmail: 'robert@truckfleet.com',
-                        providerPhone: '(555) 456-7890',
+                        customerName: 'Mike Wilson',
+                        customerEmail: 'mike@example.com',
+                        customerPhone: '(555) 456-7890',
                         serviceName: 'Motorcycle Detail',
                         servicePrice: 80,
                         scheduledDate: '2024-01-12',
                         scheduledTime: '09:00',
                         status: 'completed',
                         address: '789 Pine Rd, Anytown, ST 12345',
-                        createdAt: '2024-01-08T16:20:00Z',
-                        providerId: '3',
-                        rating: 4,
-                        review: 'Good service, would book again.'
+                        createdAt: '2024-01-08T16:20:00Z'
                     }
                 ];
 
                 setBookings(mockBookings);
             } catch (err) {
-                console.error('Error loading bookings:', err);
+                console.error('Error loading data:', err);
                 setError('Failed to load bookings');
             } finally {
                 setIsLoading(false);
             }
         };
 
-        loadBookings();
-    }, [user]);
+        loadData();
+    }, [user, router]);
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -150,60 +149,40 @@ export default function MyBookingsPage() {
         filter === 'all' || booking.status === filter
     );
 
-    const handleCancelBooking = async (bookingId: string) => {
-        if (!confirm('Are you sure you want to cancel this booking?')) return;
-
-        try {
-            // Mock cancellation - in production, this would call an API
-            setBookings(bookings.map(booking =>
-                booking.id === bookingId
-                    ? { ...booking, status: 'cancelled' as const }
-                    : booking
-            ));
-        } catch (err) {
-            console.error('Error cancelling booking:', err);
-            setError('Failed to cancel booking');
-        }
-    };
-
-    const handleRescheduleBooking = (bookingId: string) => {
-        // Mock reschedule - in production, this would open a reschedule modal
-        alert('Reschedule functionality coming soon!');
-    };
-
-    const handleRateBooking = (bookingId: string) => {
-        // Mock rating - in production, this would open a rating modal
-        const rating = prompt('Rate this service (1-5 stars):');
-        if (rating && parseInt(rating) >= 1 && parseInt(rating) <= 5) {
-            setBookings(bookings.map(booking =>
-                booking.id === bookingId
-                    ? { ...booking, rating: parseInt(rating) }
-                    : booking
-            ));
-        }
-    };
-
     // Show loading while checking auth
     if (loading || isLoading) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Loading your bookings...</p>
+                    <p className="text-gray-600">Loading bookings...</p>
                 </div>
             </div>
         );
     }
 
+    if (!provider) return null;
+
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
             <div className="bg-white shadow-sm border-b border-gray-200">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                    <div className="flex justify-between items-center">
-                        <div>
-                            <h1 className="text-2xl font-bold text-gray-900">My Bookings</h1>
-                            <p className="text-gray-600">Manage your service appointments</p>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex justify-between items-center py-6">
+                        <div className="flex items-center space-x-4">
+                            <BoopWrapper>
+                                <button
+                                    onClick={() => router.push('/provider-dashboard')}
+                                    className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
+                                >
+                                    <FiArrowLeft className="w-5 h-5 mr-2" />
+                                    Back to Dashboard
+                                </button>
+                            </BoopWrapper>
+                            <div>
+                                <h1 className="text-2xl font-bold text-gray-900">Bookings</h1>
+                                <p className="text-gray-600">Manage your customer appointments</p>
+                            </div>
                         </div>
 
                         <div className="flex items-center space-x-4">
@@ -222,16 +201,6 @@ export default function MyBookingsPage() {
                                     <option value="cancelled">Cancelled</option>
                                 </select>
                             </div>
-
-                            <BoopWrapper>
-                                <button
-                                    onClick={() => router.push('/find-providers')}
-                                    className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                                >
-                                    <FiCalendar className="w-4 h-4 mr-2" />
-                                    Book New Service
-                                </button>
-                            </BoopWrapper>
                         </div>
                     </div>
                 </div>
@@ -264,30 +233,20 @@ export default function MyBookingsPage() {
                         </h3>
                         <p className="text-gray-600 mb-6">
                             {filter === 'all'
-                                ? 'Start by booking your first service with one of our trusted providers'
+                                ? 'Bookings will appear here once customers start booking your services'
                                 : `No bookings with status "${filter}" found`
                             }
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            {filter !== 'all' && (
-                                <BoopWrapper>
-                                    <button
-                                        onClick={() => setFilter('all')}
-                                        className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                                    >
-                                        View All Bookings
-                                    </button>
-                                </BoopWrapper>
-                            )}
+                        {filter !== 'all' && (
                             <BoopWrapper>
                                 <button
-                                    onClick={() => router.push('/find-providers')}
-                                    className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                                    onClick={() => setFilter('all')}
+                                    className="text-blue-600 hover:text-blue-800 font-medium"
                                 >
-                                    Find Providers
+                                    View All Bookings
                                 </button>
                             </BoopWrapper>
-                        </div>
+                        )}
                     </motion.div>
                 ) : (
                     <div className="space-y-6">
@@ -303,7 +262,7 @@ export default function MyBookingsPage() {
                                     <div className="flex items-start justify-between mb-4">
                                         <div className="flex-1">
                                             <h3 className="text-lg font-semibold text-gray-900 mb-1">{booking.serviceName}</h3>
-                                            <p className="text-gray-600">with {booking.providerName}</p>
+                                            <p className="text-gray-600">Booking #{booking.id}</p>
                                         </div>
                                         <div className={`px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-2 ${getStatusColor(booking.status)}`}>
                                             {getStatusIcon(booking.status)}
@@ -312,6 +271,25 @@ export default function MyBookingsPage() {
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {/* Customer Information */}
+                                        <div>
+                                            <h4 className="font-medium text-gray-900 mb-3 flex items-center">
+                                                <FiUser className="w-4 h-4 mr-2" />
+                                                Customer Information
+                                            </h4>
+                                            <div className="space-y-2">
+                                                <p className="text-gray-600"><strong>Name:</strong> {booking.customerName}</p>
+                                                <p className="text-gray-600 flex items-center">
+                                                    <FiMail className="w-4 h-4 mr-2" />
+                                                    {booking.customerEmail}
+                                                </p>
+                                                <p className="text-gray-600 flex items-center">
+                                                    <FiPhone className="w-4 h-4 mr-2" />
+                                                    {booking.customerPhone}
+                                                </p>
+                                            </div>
+                                        </div>
+
                                         {/* Booking Details */}
                                         <div>
                                             <h4 className="font-medium text-gray-900 mb-3 flex items-center">
@@ -331,31 +309,8 @@ export default function MyBookingsPage() {
                                                     <FiMapPin className="w-4 h-4 mr-2" />
                                                     {booking.address}
                                                 </p>
-                                                <p className="text-gray-600 flex items-center">
-                                                    <FiDollarSign className="w-4 h-4 mr-2" />
-                                                    ${booking.servicePrice}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        {/* Provider Contact */}
-                                        <div>
-                                            <h4 className="font-medium text-gray-900 mb-3 flex items-center">
-                                                <FiUser className="w-4 h-4 mr-2" />
-                                                Provider Contact
-                                            </h4>
-                                            <div className="space-y-2">
-                                                <p className="text-gray-600 flex items-center">
-                                                    <FiUser className="w-4 h-4 mr-2" />
-                                                    {booking.providerName}
-                                                </p>
-                                                <p className="text-gray-600 flex items-center">
-                                                    <FiMail className="w-4 h-4 mr-2" />
-                                                    {booking.providerEmail}
-                                                </p>
-                                                <p className="text-gray-600 flex items-center">
-                                                    <FiPhone className="w-4 h-4 mr-2" />
-                                                    {booking.providerPhone}
+                                                <p className="text-gray-600">
+                                                    <strong>Price:</strong> ${booking.servicePrice}
                                                 </p>
                                             </div>
                                         </div>
@@ -364,93 +319,47 @@ export default function MyBookingsPage() {
                                     {/* Notes */}
                                     {booking.notes && (
                                         <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                                            <h4 className="font-medium text-gray-900 mb-2">Special Instructions</h4>
+                                            <h4 className="font-medium text-gray-900 mb-2">Customer Notes</h4>
                                             <p className="text-gray-600">{booking.notes}</p>
                                         </div>
                                     )}
 
-                                    {/* Rating and Review */}
-                                    {booking.status === 'completed' && booking.rating && (
-                                        <div className="mt-4 p-4 bg-green-50 rounded-lg">
-                                            <h4 className="font-medium text-gray-900 mb-2">Your Review</h4>
-                                            <div className="flex items-center mb-2">
-                                                {[...Array(5)].map((_, i) => (
-                                                    <FiStar
-                                                        key={i}
-                                                        className={`w-4 h-4 ${i < booking.rating! ? 'text-yellow-400 fill-current' : 'text-gray-300'
-                                                            }`}
-                                                    />
-                                                ))}
-                                                <span className="ml-2 text-sm text-gray-600">{booking.rating}/5 stars</span>
-                                            </div>
-                                            {booking.review && (
-                                                <p className="text-gray-600 text-sm">{booking.review}</p>
-                                            )}
-                                        </div>
-                                    )}
-
                                     {/* Action Buttons */}
-                                    <div className="flex flex-wrap gap-3 mt-6">
+                                    <div className="flex space-x-3 mt-6">
                                         {booking.status === 'pending' && (
                                             <>
                                                 <BoopWrapper>
-                                                    <button
-                                                        onClick={() => handleCancelBooking(booking.id)}
-                                                        className="px-4 py-2 border border-red-300 text-red-700 rounded-lg hover:bg-red-50 transition-colors"
-                                                    >
-                                                        Cancel Booking
+                                                    <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                                                        Confirm
                                                     </button>
                                                 </BoopWrapper>
                                                 <BoopWrapper>
-                                                    <button
-                                                        onClick={() => handleRescheduleBooking(booking.id)}
-                                                        className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                                                    >
-                                                        Reschedule
+                                                    <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                                                        Decline
                                                     </button>
                                                 </BoopWrapper>
                                             </>
                                         )}
 
                                         {booking.status === 'confirmed' && (
-                                            <>
-                                                <BoopWrapper>
-                                                    <button
-                                                        onClick={() => handleCancelBooking(booking.id)}
-                                                        className="px-4 py-2 border border-red-300 text-red-700 rounded-lg hover:bg-red-50 transition-colors"
-                                                    >
-                                                        Cancel Booking
-                                                    </button>
-                                                </BoopWrapper>
-                                                <BoopWrapper>
-                                                    <button
-                                                        onClick={() => handleRescheduleBooking(booking.id)}
-                                                        className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                                                    >
-                                                        Reschedule
-                                                    </button>
-                                                </BoopWrapper>
-                                            </>
+                                            <BoopWrapper>
+                                                <button className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors">
+                                                    Start Service
+                                                </button>
+                                            </BoopWrapper>
                                         )}
 
-                                        {booking.status === 'completed' && !booking.rating && (
+                                        {booking.status === 'in_progress' && (
                                             <BoopWrapper>
-                                                <button
-                                                    onClick={() => handleRateBooking(booking.id)}
-                                                    className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
-                                                >
-                                                    Rate Service
+                                                <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                                                    Complete Service
                                                 </button>
                                             </BoopWrapper>
                                         )}
 
                                         <BoopWrapper>
-                                            <button
-                                                onClick={() => router.push(`/provider/${booking.providerId}`)}
-                                                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-                                            >
-                                                View Provider
-                                                <FiArrowRight className="w-4 h-4 ml-2" />
+                                            <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                                View Details
                                             </button>
                                         </BoopWrapper>
                                     </div>
@@ -496,7 +405,7 @@ export default function MyBookingsPage() {
                                 <p className="text-2xl font-bold text-gray-900">
                                     ${bookings.reduce((sum, b) => sum + b.servicePrice, 0)}
                                 </p>
-                                <p className="text-sm text-gray-600">Total Spent</p>
+                                <p className="text-sm text-gray-600">Total Value</p>
                             </div>
                         </div>
                     </motion.div>
@@ -504,4 +413,4 @@ export default function MyBookingsPage() {
             </div>
         </div>
     );
-} 
+}

@@ -11,8 +11,23 @@ import { useToast } from "@/components/Toast";
 
 const types = ["Car", "Truck", "Watercraft & RV", "Motorcycle"];
 
+// Define proper types for vehicle data
+type VehicleData = {
+    types?: string[];
+    makes?: string[];
+    models?: Record<string, string[]>;
+    hullTypes?: string[];
+    rvTypes?: string[];
+    cabStyles?: string[];
+    bedLengths?: string[];
+    payloadClasses?: string[];
+    engineSizes?: string[];
+};
+
+type VehicleDataType = Record<string, VehicleData>;
+
 // Vehicle data structure
-const vehicleData = {
+const vehicleData: VehicleDataType = {
     Car: {
         types: ["Convertible", "Coupe", "Hatchback", "Sedan", "Sports Car", "SUV", "Van", "Wagon"],
         makes: ["Acura", "Audi", "BMW", "Buick", "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ford", "Honda", "Hyundai", "Infiniti", "Jeep", "Kia", "Lexus", "Lincoln", "Mazda", "Mercedes-Benz", "Nissan", "Porsche", "Subaru", "Tesla", "Toyota", "Volkswagen", "Volvo"],
@@ -202,11 +217,11 @@ function DetailsForm({ type }: { type: string }) {
         }
     };
 
-    const getData = () => {
+    const getData = (): VehicleData => {
         return vehicleData[type as keyof typeof vehicleData] || {};
     };
 
-    const data = getData() as any;
+    const data = getData();
 
     return (
         <motion.form

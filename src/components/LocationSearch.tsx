@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMapPin, FiSearch, FiNavigation, FiStar, FiPhone, FiGlobe, FiClock, FiHome, FiBriefcase, FiCalendar } from "react-icons/fi";
+import { FiMapPin, FiSearch, FiNavigation, FiPhone, FiGlobe, FiClock, FiHome, FiBriefcase, FiCalendar } from "react-icons/fi";
 import { FaCar, FaTruck, FaShip, FaMotorcycle } from "react-icons/fa";
 import BoopWrapper from "@/components/ui/BoopWrapper";
 import { findNearbyServices, zipToCoordinates, MockService } from "@/data/mockServices";
@@ -117,19 +117,19 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
         }
     };
 
-    const renderStars = (rating: number) => {
-        return Array.from({ length: 5 }, (_, i) => (
-            <FiStar
-                key={i}
-                className={`h-4 w-4 ${i < Math.floor(rating)
-                    ? "text-yellow-400 fill-current"
-                    : i < rating
-                        ? "text-yellow-400 fill-current opacity-50"
-                        : "text-gray-300"
-                    }`}
-            />
-        ));
-    };
+    // const renderStars = (rating: number) => {
+    //     return Array.from({ length: 5 }, (_, i) => (
+    //         <FiStar
+    //             key={i}
+    //             className={`h-4 w-4 ${i < Math.floor(rating)
+    //             ? "text-yellow-400 fill-current"
+    //             : i < rating
+    //                 ? "text-yellow-400 fill-current opacity-50"
+    //                 : "text-gray-300"
+    //             }`}
+    //     />
+    //     ));
+    // };
 
     return (
         <div className="space-y-6">
@@ -141,7 +141,7 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
                 transition={{ duration: 0.5 }}
             >
                 <div className="flex items-center mb-4">
-                    <FiMapPin className="h-6 w-6 text-pink-500 mr-3" />
+                    <FiMapPin className="h-6 w-6 text-blue-500 mr-3" />
                     <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                         Find Nearby Services
                     </h2>
@@ -159,13 +159,13 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
                                 value={zipCode}
                                 onChange={(e) => setZipCode(e.target.value)}
                                 placeholder="Enter zip code"
-                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                                 maxLength={5}
                             />
                             {savedLocations.length > 0 && (
                                 <button
                                     onClick={() => setShowSavedLocations(!showSavedLocations)}
-                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-pink-500 transition-colors"
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-500 transition-colors"
                                     title="Use saved location"
                                 >
                                     <FiMapPin className="h-4 w-4" />
@@ -197,7 +197,7 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
                                             className="w-full text-left px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-3"
                                         >
                                             {location.category === 'home' ? (
-                                                <FiHome className="text-pink-500 h-4 w-4" />
+                                                <FiHome className="text-blue-500 h-4 w-4" />
                                             ) : location.category === 'work' ? (
                                                 <FiBriefcase className="text-blue-500 h-4 w-4" />
                                             ) : (
@@ -226,7 +226,7 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
                         <select
                             value={radius}
                             onChange={(e) => setRadius(Number(e.target.value))}
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                         >
                             <option value={5}>5 miles</option>
                             <option value={10}>10 miles</option>
@@ -242,7 +242,7 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
                             <button
                                 onClick={handleSearch}
                                 disabled={!zipCode.trim() || isSearching}
-                                className="w-full bg-pink-500 hover:bg-pink-600 disabled:bg-pink-400 text-white py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center"
+                                className="w-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center"
                             >
                                 {isSearching ? (
                                     <>
@@ -284,10 +284,10 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
 
                                             handleSearch();
                                         }}
-                                        className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-pink-100 dark:hover:bg-pink-900/20 rounded-lg text-sm transition-colors"
+                                        className="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg text-sm transition-colors"
                                     >
                                         {location.category === 'home' ? (
-                                            <FiHome className="text-pink-500 h-4 w-4" />
+                                            <FiHome className="text-blue-500 h-4 w-4" />
                                         ) : location.category === 'work' ? (
                                             <FiBriefcase className="text-blue-500 h-4 w-4" />
                                         ) : (
@@ -366,7 +366,7 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
                                         >
                                             <div className="flex items-start justify-between mb-3">
                                                 <div className="flex items-center">
-                                                    <div className="p-2 bg-pink-100 dark:bg-pink-900/20 rounded-lg mr-3">
+                                                    <div className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg mr-3">
                                                         {getServiceIcon(service.type)}
                                                     </div>
                                                     <div>
@@ -379,7 +379,7 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
                                                     </div>
                                                 </div>
                                                 <div className="text-right">
-                                                    <span className="text-sm font-medium text-pink-600 dark:text-pink-400">
+                                                    <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
                                                         {service.distance?.toFixed(1)} mi
                                                     </span>
                                                 </div>
@@ -393,7 +393,7 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
 
                                             {/* Address */}
                                             <div className="flex items-center text-sm text-gray-700 dark:text-gray-200 mb-2">
-                                                <FiMapPin className="h-4 w-4 mr-1 text-pink-500" />
+                                                <FiMapPin className="h-4 w-4 mr-1 text-blue-500" />
                                                 <span>{service.address}</span>
                                             </div>
 
@@ -417,7 +417,7 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
                                                             }));
                                                             window.location.href = `/services/${service.id}?booking=${bookingData}`;
                                                         }}
-                                                        className="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                                                        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
                                                     >
                                                         <FiCalendar className="h-4 w-4" />
                                                         Book Now
@@ -431,7 +431,7 @@ export default function LocationSearch({ onServicesFound, prefilledLocation }: L
                                                     {service.phone && (
                                                         <a
                                                             href={`tel:${service.phone.replace(/[^\d]/g, "")}`}
-                                                            className="flex items-center text-xs text-pink-600 dark:text-pink-400 hover:text-pink-700 dark:hover:text-pink-300"
+                                                            className="flex items-center text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
                                                             title="Call"
                                                         >
                                                             <FiPhone className="h-3 w-3 mr-1" />

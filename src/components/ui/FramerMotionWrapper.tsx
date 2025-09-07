@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { ReactNode } from "react";
+
 
 // Dynamically import Framer Motion components to avoid client boundary issues
 const MotionDiv = dynamic(() => import("framer-motion").then((mod) => ({ default: mod.motion.div })), {

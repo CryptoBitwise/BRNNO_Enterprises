@@ -37,10 +37,10 @@ export default function Button({
     };
 
     const variantClasses = {
-        primary: "bg-pink-500 hover:bg-pink-600 text-white focus:ring-pink-500 shadow-sm hover:shadow-md",
+        primary: "bg-blue-500 hover:bg-blue-600 text-white focus:ring-blue-500 shadow-sm hover:shadow-md",
         secondary: "bg-gray-500 hover:bg-gray-600 text-white focus:ring-gray-500 shadow-sm hover:shadow-md",
-        outline: "border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 focus:ring-pink-500 hover:border-pink-300",
-        ghost: "text-gray-700 hover:bg-gray-100 focus:ring-pink-500",
+        outline: "border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 focus:ring-blue-500 hover:border-blue-300",
+        ghost: "text-gray-700 hover:bg-gray-100 focus:ring-blue-500",
         danger: "bg-red-500 hover:bg-red-600 text-white focus:ring-red-500 shadow-sm hover:shadow-md"
     };
 

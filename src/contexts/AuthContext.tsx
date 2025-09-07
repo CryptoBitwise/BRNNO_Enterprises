@@ -17,16 +17,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         // If Firebase auth is not available, skip auth state monitoring
         if (!authClient) {
-            console.warn('Firebase Auth not available. Please configure Firebase in .env.local');
             setLoading(false);
             return;
         }
 
+        // Add a shorter timeout to prevent long loading screens
+        const timeout = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+
         const unsubscribe = onAuthStateChanged(authClient, (user) => {
+            clearTimeout(timeout);
             setUser(user);
             setLoading(false);
         });
-        return unsubscribe;
+
+        return () => {
+            clearTimeout(timeout);
+            unsubscribe();
+        };
     }, []);
 
     return (

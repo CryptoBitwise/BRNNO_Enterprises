@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "@/contexts/AuthContext";
 import { useProfile } from "@/hooks/useProfile";
 import { useToast } from "@/components/Toast";
 import { FiUser, FiSettings, FiEdit3, FiPlus, FiTrash2, FiTruck, FiArrowLeft } from "react-icons/fi";
@@ -97,7 +96,7 @@ export default function AccountPage() {
                         <BoopWrapper>
                             <button
                                 onClick={() => router.back()}
-                                className="flex items-center text-gray-600 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
+                                className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                             >
                                 <FiArrowLeft className="mr-2" />
                                 Back
@@ -113,7 +112,7 @@ export default function AccountPage() {
                         transition={{ delay: 0.2 }}
                     >
                         <div className="flex items-center justify-center mb-4">
-                            <FiUser className="h-8 w-8 text-pink-500 mr-3" />
+                            <FiUser className="h-8 w-8 text-blue-500 mr-3" />
                             <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                                 Account
                             </h1>
@@ -177,7 +176,7 @@ export default function AccountPage() {
                                         <BoopWrapper>
                                             <button
                                                 onClick={() => setIsEditing(!isEditing)}
-                                                className="flex items-center text-pink-500 hover:text-pink-600 font-medium"
+                                                className="flex items-center text-blue-500 hover:text-pink-600 font-medium"
                                             >
                                                 <FiEdit3 className="h-4 w-4 mr-1" />
                                                 {isEditing ? "Cancel" : "Edit"}
@@ -195,7 +194,7 @@ export default function AccountPage() {
                                                     type="text"
                                                     value={formData.displayName}
                                                     onChange={(e) => handleInputChange("displayName", e.target.value)}
-                                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100"
+                                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100"
                                                 />
                                             ) : (
                                                 <p className="text-gray-900 dark:text-gray-100">{formData.displayName}</p>
@@ -211,7 +210,7 @@ export default function AccountPage() {
                                                     type="email"
                                                     value={formData.email}
                                                     onChange={(e) => handleInputChange("email", e.target.value)}
-                                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100"
+                                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100"
                                                 />
                                             ) : (
                                                 <p className="text-gray-900 dark:text-gray-100">{formData.email}</p>
@@ -227,7 +226,7 @@ export default function AccountPage() {
                                                     type="tel"
                                                     value={formData.phone}
                                                     onChange={(e) => handleInputChange("phone", e.target.value)}
-                                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100"
+                                                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100"
                                                 />
                                             ) : (
                                                 <p className="text-gray-900 dark:text-gray-100">{formData.phone}</p>
@@ -239,7 +238,7 @@ export default function AccountPage() {
                                                 <BoopWrapper>
                                                     <button
                                                         onClick={handleSave}
-                                                        className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                                                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
                                                     >
                                                         Save Changes
                                                     </button>
@@ -264,7 +263,7 @@ export default function AccountPage() {
                                             Vehicle Management
                                         </h2>
                                         <BoopWrapper>
-                                            <button className="flex items-center bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                                            <button className="flex items-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
                                                 <FiPlus className="h-4 w-4 mr-1" />
                                                 Add Vehicle
                                             </button>
@@ -274,7 +273,7 @@ export default function AccountPage() {
                                     <div className="space-y-4">
                                         {loading ? (
                                             <div className="text-center py-8">
-                                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
+                                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
                                                 <p className="text-gray-500 dark:text-gray-400 mt-2">Loading vehicles...</p>
                                             </div>
                                         ) : profile?.vehicles && profile.vehicles.length > 0 ? (
@@ -305,7 +304,7 @@ export default function AccountPage() {
                                                         </div>
                                                         <div className="flex space-x-2">
                                                             <BoopWrapper>
-                                                                <button className="text-pink-500 hover:text-pink-600">
+                                                                <button className="text-blue-500 hover:text-pink-600">
                                                                     <FiEdit3 className="h-4 w-4" />
                                                                 </button>
                                                             </BoopWrapper>
@@ -355,7 +354,7 @@ export default function AccountPage() {
                                                 Update your password to keep your account secure
                                             </p>
                                             <BoopWrapper>
-                                                <button className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                                                <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
                                                     Change Password
                                                 </button>
                                             </BoopWrapper>

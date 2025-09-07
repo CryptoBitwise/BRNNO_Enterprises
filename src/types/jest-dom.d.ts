@@ -14,11 +14,11 @@ declare global {
             toBeChecked(): R;
             toBePartiallyChecked(): R;
             toHaveDisplayValue(value: string | string[]): R;
-            toHaveFormValues(expectedValues: Record<string, any>): R;
+            toHaveFormValues(expectedValues: Record<string, unknown>): R;
             toHaveAccessibleName(name: string): R;
             toHaveAccessibleDescription(description: string): R;
             toHaveFocus(): R;
-            toHaveStyle(css: string | Record<string, any>): R;
+            toHaveStyle(css: string | Record<string, unknown>): R;
         }
     }
 }

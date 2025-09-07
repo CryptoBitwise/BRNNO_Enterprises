@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { authClient } from "@/lib/firebaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { BoopButton } from "@/components/ui/BoopWrapper";
+
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FiArrowLeft, FiMapPin, FiPlus, FiEdit3, FiTrash2, FiSearch } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { FiArrowLeft, FiMapPin, FiPlus, FiSearch } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import BoopWrapper from "@/components/ui/BoopWrapper";
 import SavedLocationCard from "@/components/SavedLocationCard";

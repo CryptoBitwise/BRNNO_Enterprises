@@ -110,10 +110,10 @@ export async function DELETE(request: NextRequest) {
     }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST() {
     // handle creating a booking
 }
 
-export async function PUT(request: NextRequest) {
+export async function PUT() {
     // handle updating a booking
 } 

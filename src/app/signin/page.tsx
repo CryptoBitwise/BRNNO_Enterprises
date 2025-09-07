@@ -23,10 +23,11 @@ export default function SignInPage() {
         setError("");
 
         try {
+            if (!authClient) throw new Error('Firebase not initialized');
             await signInWithEmailAndPassword(authClient, email, password);
             router.push("/");
-        } catch (error: any) {
-            setError(error.message);
+        } catch (error: unknown) {
+            setError(error instanceof Error ? error.message : 'An unknown error occurred');
         } finally {
             setLoading(false);
         }
@@ -85,7 +86,7 @@ export default function SignInPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
+                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
                                     placeholder="Enter your email"
                                 />
                             </div>
@@ -103,7 +104,7 @@ export default function SignInPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
+                                    className="w-full pl-10 pr-12 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
                                     placeholder="Enter your password"
                                 />
                                 <BoopWrapper>
@@ -122,7 +123,7 @@ export default function SignInPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
+                                className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
                             >
                                 {loading ? "Signing In..." : "Sign In"}
                             </button>
@@ -136,8 +137,8 @@ export default function SignInPage() {
                         transition={{ delay: 0.4 }}
                     >
                         <p className="text-gray-600 dark:text-gray-400">
-                            Don't have an account?{" "}
-                            <Link href="/signup" className="text-pink-500 hover:text-pink-600 font-medium">
+                            Don&apos;t have an account?{" "}
+                            <Link href="/signup" className="text-blue-500 hover:text-blue-600 font-medium">
                                 Sign up
                             </Link>
                         </p>

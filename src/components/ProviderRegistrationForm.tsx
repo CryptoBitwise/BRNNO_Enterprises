@@ -411,8 +411,8 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                                 type="button"
                                                 onClick={() => toggleArrayItem("serviceCategories", category.key)}
                                                 className={`w-full p-4 rounded-lg border-2 transition-all duration-200 ${formData.serviceCategories.includes(category.key)
-                                                        ? "border-blue-500 bg-blue-50 text-blue-700"
-                                                        : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"
+                                                    ? "border-blue-500 bg-blue-50 text-blue-700"
+                                                    : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"
                                                     }`}
                                             >
                                                 <div className="flex flex-col items-center space-y-2">
@@ -645,7 +645,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
             <div className="max-w-4xl mx-auto px-4">
                 {/* Header */}
                 <div className="text-center mb-8">
@@ -662,8 +662,8 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                 {steps.map((step, index) => (
                                     <div key={step.id} className="flex items-center">
                                         <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${currentStep >= step.id
-                                                ? 'bg-blue-500 border-blue-500 text-white'
-                                                : 'border-gray-300 text-gray-500'
+                                            ? 'bg-blue-500 border-blue-500 text-white'
+                                            : 'border-gray-300 text-gray-500'
                                             }`}>
                                             {currentStep > step.id ? (
                                                 <FiCheck className="w-5 h-5" />
@@ -704,8 +704,8 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     onClick={prevStep}
                                     disabled={currentStep === 1}
                                     className={`flex items-center px-6 py-3 rounded-lg font-medium transition-all duration-200 ${currentStep === 1
-                                            ? 'text-gray-400 cursor-not-allowed'
-                                            : 'text-gray-700 hover:bg-gray-100'
+                                        ? 'text-gray-400 cursor-not-allowed'
+                                        : 'text-gray-700 hover:bg-gray-100'
                                         }`}
                                 >
                                     <FiArrowLeft className="w-4 h-4 mr-2" />

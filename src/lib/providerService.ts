@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { dbClient } from "./firebaseClient";
 import { ProviderProfile, ProviderService as ProviderServiceType, ProviderAvailability, ProviderRegistrationData } from "@/types/provider";
+import { SyncService } from "./syncService";
 
 export class ProviderService {
     private static getProvidersCollection() {
@@ -82,6 +83,18 @@ export class ProviderService {
             };
 
             await setDoc(this.getProviderDoc(providerId), providerData);
+
+            // Sync to Supabase
+            console.log('Provider created in Firebase, now syncing to Supabase...');
+            const syncResult = await SyncService.syncProviderRegistration(providerId, data);
+
+            if (!syncResult.success) {
+                console.warn('Supabase sync failed, but Firebase record was created:', syncResult.error);
+                // Don't throw error here - Firebase record is still valid
+                // Just log the sync failure
+            } else {
+                console.log('Successfully synced provider to Supabase');
+            }
 
             return { id: providerId, ...providerData };
         } catch (error) {

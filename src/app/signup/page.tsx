@@ -6,7 +6,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { authClient } from "@/lib/firebaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FiMail, FiLock, FiEye, FiEyeOff, FiUser } from "react-icons/fi";
+import { FiMail, FiLock, FiEye, FiEyeOff, FiUser, FiUsers, FiBriefcase } from "react-icons/fi";
 import BoopWrapper from "@/components/ui/BoopWrapper";
 
 export default function SignUpPage() {
@@ -14,6 +14,7 @@ export default function SignUpPage() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [displayName, setDisplayName] = useState("");
+    const [userType, setUserType] = useState<'customer' | 'provider' | ''>('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -37,6 +38,12 @@ export default function SignUpPage() {
             return;
         }
 
+        if (!userType) {
+            setError("Please select whether you're a customer or provider");
+            setLoading(false);
+            return;
+        }
+
         try {
             if (!authClient) throw new Error('Firebase not initialized');
             const userCredential = await createUserWithEmailAndPassword(authClient, email, password);
@@ -47,7 +54,12 @@ export default function SignUpPage() {
                 });
             }
 
-            router.push("/");
+            // Redirect based on user type
+            if (userType === 'provider') {
+                router.push("/provider-register");
+            } else {
+                router.push("/");
+            }
         } catch (error: unknown) {
             setError(error instanceof Error ? error.message : 'An unknown error occurred');
         } finally {
@@ -74,7 +86,7 @@ export default function SignUpPage() {
                             Create Account
                         </h1>
                         <p className="text-gray-600 dark:text-gray-400">
-                            Join Reviva to start booking your vehicle services
+                            Join BRNNO to connect with service providers or grow your business
                         </p>
                     </motion.div>
 
@@ -110,6 +122,48 @@ export default function SignUpPage() {
                                     className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
                                     placeholder="Enter your full name"
                                 />
+                            </div>
+                        </div>
+
+                        {/* User Type Selection */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                                I am a...
+                            </label>
+                            <div className="grid grid-cols-2 gap-4">
+                                <BoopWrapper>
+                                    <button
+                                        type="button"
+                                        onClick={() => setUserType('customer')}
+                                        className={`p-4 rounded-lg border-2 transition-all duration-200 ${userType === 'customer'
+                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                                                : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500'
+                                            }`}
+                                    >
+                                        <div className="flex flex-col items-center space-y-2">
+                                            <FiUsers className="w-6 h-6" />
+                                            <span className="font-medium">Customer</span>
+                                            <span className="text-xs text-center">Looking for services</span>
+                                        </div>
+                                    </button>
+                                </BoopWrapper>
+
+                                <BoopWrapper>
+                                    <button
+                                        type="button"
+                                        onClick={() => setUserType('provider')}
+                                        className={`p-4 rounded-lg border-2 transition-all duration-200 ${userType === 'provider'
+                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                                                : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500'
+                                            }`}
+                                    >
+                                        <div className="flex flex-col items-center space-y-2">
+                                            <FiBriefcase className="w-6 h-6" />
+                                            <span className="font-medium">Provider</span>
+                                            <span className="text-xs text-center">Offering services</span>
+                                        </div>
+                                    </button>
+                                </BoopWrapper>
                             </div>
                         </div>
 

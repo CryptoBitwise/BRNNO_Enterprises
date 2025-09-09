@@ -3,15 +3,15 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
-// Firebase configuration - using hardcoded values for now to ensure it works
+// Firebase configuration - using environment variables
 const firebaseConfig = {
-    apiKey: "AIzaSyASX7OPJWNJv5XpyMpfkkhSsC-QgGiRCQU",
-    authDomain: "brnno-enterprises.firebaseapp.com",
-    projectId: "brnno-enterprises",
-    storageBucket: "brnno-enterprises.firebasestorage.app",
-    messagingSenderId: "475634309916",
-    appId: "1:475634309916:web:6d27ecc83c646e7243f8d9",
-    measurementId: "G-6P17QBPMCN"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 const hasFirebaseConfig = true;

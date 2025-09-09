@@ -51,37 +51,32 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
         licenseNumber: "",
         insuranceProvider: "",
         insurancePolicyNumber: "",
-        businessAddress: {
+        address: {
             street: "",
             city: "",
             state: "",
             zipCode: "",
             country: "US"
         },
-        serviceArea: {
-            radius: 25,
-            zipCodes: []
-        },
+        serviceRadius: 25,
+        serviceAreas: [],
         serviceCategories: [],
-        services: [],
+        specialties: [],
         businessHours: {
-            monday: { isOpen: true, openTime: "09:00", closeTime: "17:00" },
-            tuesday: { isOpen: true, openTime: "09:00", closeTime: "17:00" },
-            wednesday: { isOpen: true, openTime: "09:00", closeTime: "17:00" },
-            thursday: { isOpen: true, openTime: "09:00", closeTime: "17:00" },
-            friday: { isOpen: true, openTime: "09:00", closeTime: "17:00" },
-            saturday: { isOpen: false, openTime: "09:00", closeTime: "17:00" },
-            sunday: { isOpen: false, openTime: "09:00", closeTime: "17:00" }
+            monday: { open: "09:00", close: "17:00", closed: false },
+            tuesday: { open: "09:00", close: "17:00", closed: false },
+            wednesday: { open: "09:00", close: "17:00", closed: false },
+            thursday: { open: "09:00", close: "17:00", closed: false },
+            friday: { open: "09:00", close: "17:00", closed: false },
+            saturday: { open: "09:00", close: "17:00", closed: true },
+            sunday: { open: "09:00", close: "17:00", closed: true }
         },
-        pricing: {
-            baseCommissionRate: 15,
-            minimumJobValue: 50,
-            maximumJobValue: 10000
-        },
+        baseCommissionRate: 15,
+        minimumBookingAmount: 50,
         verificationDocuments: {
-            businessLicense: null,
-            insuranceCertificate: null,
-            idVerification: null
+            businessLicense: undefined,
+            insuranceCertificate: undefined,
+            idVerification: undefined
         }
     });
 
@@ -102,20 +97,20 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                 if (formData.yearsInBusiness < 0) newErrors.yearsInBusiness = "Years in business must be 0 or greater";
                 break;
             case 3:
-                if (!formData.businessAddress.street.trim()) newErrors.street = "Street address is required";
-                if (!formData.businessAddress.city.trim()) newErrors.city = "City is required";
-                if (!formData.businessAddress.state.trim()) newErrors.state = "State is required";
-                if (!formData.businessAddress.zipCode.trim()) newErrors.zipCode = "ZIP code is required";
+                if (!formData.address.street.trim()) newErrors.street = "Street address is required";
+                if (!formData.address.city.trim()) newErrors.city = "City is required";
+                if (!formData.address.state.trim()) newErrors.state = "State is required";
+                if (!formData.address.zipCode.trim()) newErrors.zipCode = "ZIP code is required";
                 break;
             case 4:
                 if (formData.serviceCategories.length === 0) newErrors.serviceCategories = "At least one service category is required";
                 break;
             case 6:
-                if (formData.pricing.baseCommissionRate < 5 || formData.pricing.baseCommissionRate > 30) {
+                if (formData.baseCommissionRate < 5 || formData.baseCommissionRate > 30) {
                     newErrors.baseCommissionRate = "Commission rate must be between 5% and 30%";
                 }
-                if (formData.pricing.minimumJobValue < 10) {
-                    newErrors.minimumJobValue = "Minimum job value must be at least $10";
+                if (formData.minimumBookingAmount < 10) {
+                    newErrors.minimumBookingAmount = "Minimum booking amount must be at least $10";
                 }
                 break;
         }
@@ -328,8 +323,8 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     <label className="block text-sm font-medium text-gray-700 mb-2">Street Address *</label>
                                     <input
                                         type="text"
-                                        value={formData.businessAddress.street}
-                                        onChange={(e) => updateFormData("businessAddress.street", e.target.value)}
+                                        value={formData.address.street}
+                                        onChange={(e) => updateFormData("address.street", e.target.value)}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                         placeholder="123 Main Street"
                                     />
@@ -340,8 +335,8 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     <label className="block text-sm font-medium text-gray-700 mb-2">City *</label>
                                     <input
                                         type="text"
-                                        value={formData.businessAddress.city}
-                                        onChange={(e) => updateFormData("businessAddress.city", e.target.value)}
+                                        value={formData.address.city}
+                                        onChange={(e) => updateFormData("address.city", e.target.value)}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                         placeholder="City"
                                     />
@@ -352,8 +347,8 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     <label className="block text-sm font-medium text-gray-700 mb-2">State *</label>
                                     <input
                                         type="text"
-                                        value={formData.businessAddress.state}
-                                        onChange={(e) => updateFormData("businessAddress.state", e.target.value)}
+                                        value={formData.address.state}
+                                        onChange={(e) => updateFormData("address.state", e.target.value)}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                         placeholder="State"
                                     />
@@ -364,8 +359,8 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     <label className="block text-sm font-medium text-gray-700 mb-2">ZIP Code *</label>
                                     <input
                                         type="text"
-                                        value={formData.businessAddress.zipCode}
-                                        onChange={(e) => updateFormData("businessAddress.zipCode", e.target.value)}
+                                        value={formData.address.zipCode}
+                                        onChange={(e) => updateFormData("address.zipCode", e.target.value)}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                         placeholder="12345"
                                     />
@@ -382,13 +377,13 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="range"
                                     min="5"
                                     max="100"
-                                    value={formData.serviceArea.radius}
-                                    onChange={(e) => updateFormData("serviceArea.radius", parseInt(e.target.value))}
+                                    value={formData.serviceRadius}
+                                    onChange={(e) => updateFormData("serviceRadius", parseInt(e.target.value))}
                                     className="w-full"
                                 />
                                 <div className="flex justify-between text-sm text-gray-600 mt-1">
                                     <span>5 miles</span>
-                                    <span className="font-medium">{formData.serviceArea.radius} miles</span>
+                                    <span className="font-medium">{formData.serviceRadius} miles</span>
                                     <span>100 miles</span>
                                 </div>
                             </div>
@@ -433,8 +428,8 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Specific Services</label>
                                 <textarea
-                                    value={formData.services.join(", ")}
-                                    onChange={(e) => updateFormData("services", e.target.value.split(", ").filter(s => s.trim()))}
+                                    value={formData.specialties.join(", ")}
+                                    onChange={(e) => updateFormData("specialties", e.target.value.split(", ").filter(s => s.trim()))}
                                     rows={3}
                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="List specific services you offer (comma-separated)"
@@ -456,31 +451,31 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                         <label className="flex items-center space-x-2">
                                             <input
                                                 type="checkbox"
-                                                checked={hours.isOpen}
-                                                onChange={(e) => updateFormData(`businessHours.${day}.isOpen`, e.target.checked)}
+                                                checked={!hours.closed}
+                                                onChange={(e) => updateFormData(`businessHours.${day}.closed`, !e.target.checked)}
                                                 className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                             />
                                             <span className="text-sm font-medium capitalize">{day}</span>
                                         </label>
                                     </div>
-                                    {hours.isOpen && (
+                                    {!hours.closed && (
                                         <div className="flex items-center space-x-2">
                                             <input
                                                 type="time"
-                                                value={hours.openTime}
-                                                onChange={(e) => updateFormData(`businessHours.${day}.openTime`, e.target.value)}
+                                                value={hours.open}
+                                                onChange={(e) => updateFormData(`businessHours.${day}.open`, e.target.value)}
                                                 className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                             />
                                             <span className="text-gray-500">to</span>
                                             <input
                                                 type="time"
-                                                value={hours.closeTime}
-                                                onChange={(e) => updateFormData(`businessHours.${day}.closeTime`, e.target.value)}
+                                                value={hours.close}
+                                                onChange={(e) => updateFormData(`businessHours.${day}.close`, e.target.value)}
                                                 className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                             />
                                         </div>
                                     )}
-                                    {!hours.isOpen && (
+                                    {hours.closed && (
                                         <span className="text-gray-500 text-sm">Closed</span>
                                     )}
                                 </div>
@@ -501,8 +496,8 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="number"
                                     min="5"
                                     max="30"
-                                    value={formData.pricing.baseCommissionRate}
-                                    onChange={(e) => updateFormData("pricing.baseCommissionRate", parseInt(e.target.value) || 0)}
+                                    value={formData.baseCommissionRate}
+                                    onChange={(e) => updateFormData("baseCommissionRate", parseInt(e.target.value) || 0)}
                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                 />
                                 {errors.baseCommissionRate && <p className="text-red-500 text-sm mt-1">{errors.baseCommissionRate}</p>}
@@ -513,29 +508,19 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                 <input
                                     type="number"
                                     min="10"
-                                    value={formData.pricing.minimumJobValue}
-                                    onChange={(e) => updateFormData("pricing.minimumJobValue", parseInt(e.target.value) || 0)}
+                                    value={formData.minimumBookingAmount}
+                                    onChange={(e) => updateFormData("minimumBookingAmount", parseInt(e.target.value) || 0)}
                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                 />
-                                {errors.minimumJobValue && <p className="text-red-500 text-sm mt-1">{errors.minimumJobValue}</p>}
+                                {errors.minimumBookingAmount && <p className="text-red-500 text-sm mt-1">{errors.minimumBookingAmount}</p>}
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Maximum Job Value ($)</label>
-                                <input
-                                    type="number"
-                                    min="100"
-                                    value={formData.pricing.maximumJobValue}
-                                    onChange={(e) => updateFormData("pricing.maximumJobValue", parseInt(e.target.value) || 0)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
-                                />
-                            </div>
                         </div>
 
                         <div className="bg-blue-50 p-4 rounded-lg">
                             <h4 className="font-semibold text-blue-900 mb-2">Commission Structure</h4>
                             <p className="text-blue-800 text-sm">
-                                BRNNO charges a {formData.pricing.baseCommissionRate}% commission on all completed jobs.
+                                BRNNO charges a {formData.baseCommissionRate}% commission on all completed jobs.
                                 This helps us maintain the platform, provide customer support, and handle payments securely.
                             </p>
                         </div>

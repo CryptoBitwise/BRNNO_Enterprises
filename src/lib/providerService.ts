@@ -53,9 +53,9 @@ export class ProviderService {
                 insurancePolicyNumber: data.insurancePolicyNumber,
                 address: data.address,
                 serviceRadius: data.serviceRadius,
-                serviceAreas: data.serviceAreas,
-                serviceCategories: data.serviceCategories,
-                specialties: data.specialties,
+                serviceAreas: data.serviceAreas || [],
+                serviceCategories: data.serviceCategories || [],
+                specialties: data.specialties || [],
                 businessHours: data.businessHours,
                 baseCommissionRate: data.baseCommissionRate,
                 minimumBookingAmount: data.minimumBookingAmount,
@@ -86,7 +86,7 @@ export class ProviderService {
             return { id: providerId, ...providerData };
         } catch (error) {
             console.error('Error creating provider:', error);
-            throw new Error('Failed to create provider profile');
+            throw new Error(`Failed to create provider profile: ${error instanceof Error ? error.message : 'Unknown error'}`);
         }
     }
 

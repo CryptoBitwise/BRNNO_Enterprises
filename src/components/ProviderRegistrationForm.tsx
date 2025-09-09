@@ -182,7 +182,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="text"
                                     value={formData.businessName}
                                     onChange={(e) => updateFormData("businessName", e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="Enter your business name"
                                 />
                                 {errors.businessName && <p className="text-red-500 text-sm mt-1">{errors.businessName}</p>}
@@ -193,7 +193,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                 <select
                                     value={formData.businessType}
                                     onChange={(e) => updateFormData("businessType", e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                 >
                                     <option value="individual">Individual/Sole Proprietor</option>
                                     <option value="company">Company/Corporation</option>
@@ -206,7 +206,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="text"
                                     value={formData.contactPerson}
                                     onChange={(e) => updateFormData("contactPerson", e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="Your full name"
                                 />
                                 {errors.contactPerson && <p className="text-red-500 text-sm mt-1">{errors.contactPerson}</p>}
@@ -218,7 +218,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="email"
                                     value={formData.email}
                                     onChange={(e) => updateFormData("email", e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="business@example.com"
                                 />
                                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -230,7 +230,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="tel"
                                     value={formData.phone}
                                     onChange={(e) => updateFormData("phone", e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="(555) 123-4567"
                                 />
                                 {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -242,7 +242,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="url"
                                     value={formData.website}
                                     onChange={(e) => updateFormData("website", e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="https://yourwebsite.com"
                                 />
                             </div>
@@ -261,7 +261,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                 value={formData.businessDescription}
                                 onChange={(e) => updateFormData("businessDescription", e.target.value)}
                                 rows={4}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                 placeholder="Tell us about your business, experience, and what makes you unique..."
                             />
                             {errors.businessDescription && <p className="text-red-500 text-sm mt-1">{errors.businessDescription}</p>}
@@ -275,7 +275,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     min="0"
                                     value={formData.yearsInBusiness}
                                     onChange={(e) => updateFormData("yearsInBusiness", parseInt(e.target.value) || 0)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                 />
                                 {errors.yearsInBusiness && <p className="text-red-500 text-sm mt-1">{errors.yearsInBusiness}</p>}
                             </div>
@@ -286,7 +286,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="text"
                                     value={formData.licenseNumber}
                                     onChange={(e) => updateFormData("licenseNumber", e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="Business license number (if applicable)"
                                 />
                             </div>
@@ -297,7 +297,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="text"
                                     value={formData.insuranceProvider}
                                     onChange={(e) => updateFormData("insuranceProvider", e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="Insurance company name"
                                 />
                             </div>
@@ -308,7 +308,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     type="text"
                                     value={formData.insurancePolicyNumber}
                                     onChange={(e) => updateFormData("insurancePolicyNumber", e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="Policy number"
                                 />
                             </div>
@@ -330,7 +330,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                         type="text"
                                         value={formData.businessAddress.street}
                                         onChange={(e) => updateFormData("businessAddress.street", e.target.value)}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                         placeholder="123 Main Street"
                                     />
                                     {errors.street && <p className="text-red-500 text-sm mt-1">{errors.street}</p>}
@@ -342,7 +342,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                         type="text"
                                         value={formData.businessAddress.city}
                                         onChange={(e) => updateFormData("businessAddress.city", e.target.value)}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                         placeholder="City"
                                     />
                                     {errors.city && <p className="text-red-500 text-sm mt-1">{errors.city}</p>}
@@ -354,7 +354,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                         type="text"
                                         value={formData.businessAddress.state}
                                         onChange={(e) => updateFormData("businessAddress.state", e.target.value)}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                         placeholder="State"
                                     />
                                     {errors.state && <p className="text-red-500 text-sm mt-1">{errors.state}</p>}
@@ -366,7 +366,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                         type="text"
                                         value={formData.businessAddress.zipCode}
                                         onChange={(e) => updateFormData("businessAddress.zipCode", e.target.value)}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                         placeholder="12345"
                                     />
                                     {errors.zipCode && <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>}
@@ -436,7 +436,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     value={formData.services.join(", ")}
                                     onChange={(e) => updateFormData("services", e.target.value.split(", ").filter(s => s.trim()))}
                                     rows={3}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                     placeholder="List specific services you offer (comma-separated)"
                                 />
                             </div>
@@ -469,14 +469,14 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                                 type="time"
                                                 value={hours.openTime}
                                                 onChange={(e) => updateFormData(`businessHours.${day}.openTime`, e.target.value)}
-                                                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                             />
                                             <span className="text-gray-500">to</span>
                                             <input
                                                 type="time"
                                                 value={hours.closeTime}
                                                 onChange={(e) => updateFormData(`businessHours.${day}.closeTime`, e.target.value)}
-                                                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                             />
                                         </div>
                                     )}
@@ -503,7 +503,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     max="30"
                                     value={formData.pricing.baseCommissionRate}
                                     onChange={(e) => updateFormData("pricing.baseCommissionRate", parseInt(e.target.value) || 0)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                 />
                                 {errors.baseCommissionRate && <p className="text-red-500 text-sm mt-1">{errors.baseCommissionRate}</p>}
                             </div>
@@ -515,7 +515,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     min="10"
                                     value={formData.pricing.minimumJobValue}
                                     onChange={(e) => updateFormData("pricing.minimumJobValue", parseInt(e.target.value) || 0)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                 />
                                 {errors.minimumJobValue && <p className="text-red-500 text-sm mt-1">{errors.minimumJobValue}</p>}
                             </div>
@@ -527,7 +527,7 @@ export default function ProviderRegistrationForm({ onComplete, onCancel }: Provi
                                     min="100"
                                     value={formData.pricing.maximumJobValue}
                                     onChange={(e) => updateFormData("pricing.maximumJobValue", parseInt(e.target.value) || 0)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                                 />
                             </div>
                         </div>
